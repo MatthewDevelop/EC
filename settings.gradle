@@ -1,0 +1,1 @@
+include ':app', ':fxn-annotations', ':fxn-compiler', ':fxn-core', ':fxn-ec'
