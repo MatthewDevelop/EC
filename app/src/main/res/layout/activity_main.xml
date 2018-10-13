@@ -8,6 +8,6 @@
     <com.joanzapata.iconify.widget.IconTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="{FONT-ALIPAY}"/>
+        android:text="@string/font_alipay"/>
 
 </android.support.constraint.ConstraintLayout>

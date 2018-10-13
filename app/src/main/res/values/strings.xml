@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Ec</string>
+
+    <!--font-->
+    <string name="font_alipay">{font-ali-pay}</string><!--AliPay-->
+    <string name="font_wechat_pay">{font-wechat-pay}</string><!--WeChatPay-->
 </resources>
