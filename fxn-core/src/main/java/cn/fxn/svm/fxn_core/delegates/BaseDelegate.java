@@ -18,7 +18,7 @@ import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
  * @func:
  */
 public abstract class BaseDelegate extends SwipeBackFragment {
-    
+
     private Unbinder mUnbinder = null;
 
     @Nullable
