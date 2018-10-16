@@ -1,5 +1,6 @@
 package cn.fxn.svm.fxn_core.net;
 
+import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
 import cn.fxn.svm.fxn_core.app.ConfigType;
@@ -16,8 +17,12 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 public class RestCreator {
 
-    public static RestService getRestService(){
+    public static RestService getRestService() {
         return RestServiceHolder.REST_SERVICE;
+    }
+
+    public static WeakHashMap<String, Object> getParams() {
+        return ParamsHolder.PARAMS;
     }
 
     private static final class RetrofitHolder {
@@ -38,5 +43,9 @@ public class RestCreator {
     private static final class RestServiceHolder {
         public static final RestService REST_SERVICE =
                 RetrofitHolder.RETROFIT_CLIENT.create(RestService.class);
+    }
+
+    private static final class ParamsHolder {
+        public static final WeakHashMap<String, Object> PARAMS = new WeakHashMap<>();
     }
 }
