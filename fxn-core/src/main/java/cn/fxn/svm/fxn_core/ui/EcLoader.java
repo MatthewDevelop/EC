@@ -11,7 +11,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.ArrayList;
 
 import cn.fxn.svm.fxn_core.R;
-import cn.fxn.svm.fxn_core.util.DimenUtil;
+import cn.fxn.svm.fxn_core.util.dimen.DimenUtil;
 
 
 /**

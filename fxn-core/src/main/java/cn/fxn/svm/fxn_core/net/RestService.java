@@ -46,6 +46,12 @@ public interface RestService {
     @DELETE
     Call<String> delete(@Url String url, @QueryMap Map<String, Object> params);
 
+    /**
+     * 必须使用异步的方式
+     * @param url
+     * @param params
+     * @return
+     */
     @Streaming
     @GET
     Call<ResponseBody> download(@Url String url, @QueryMap Map<String, Object> params);

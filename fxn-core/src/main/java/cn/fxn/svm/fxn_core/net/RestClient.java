@@ -10,6 +10,7 @@ import cn.fxn.svm.fxn_core.net.callback.IFailure;
 import cn.fxn.svm.fxn_core.net.callback.IRequest;
 import cn.fxn.svm.fxn_core.net.callback.ISuccess;
 import cn.fxn.svm.fxn_core.net.callback.RequestCallbacks;
+import cn.fxn.svm.fxn_core.net.download.DownloadHandler;
 import cn.fxn.svm.fxn_core.ui.EcLoader;
 import cn.fxn.svm.fxn_core.ui.LoaderStyle;
 import okhttp3.MediaType;
@@ -27,6 +28,12 @@ import retrofit2.Callback;
 public class RestClient {
     private static final WeakHashMap<String, Object> PARAMS = RestCreator.getParams();
     private final String URL;
+    //下载到路径
+    private final String DOWNLOAD_DIR;
+    //文件后缀
+    private final String EXTENSION;
+    //下载的文件名
+    private final String NAME;
     private final IRequest REQUEST;
     private final ISuccess SUCCESS;
     private final IFailure FAILURE;
@@ -36,11 +43,14 @@ public class RestClient {
     private final File FILE;
     private final Context CONTEXT;
 
-    public RestClient(String url, WeakHashMap<String, Object> params,
-                      IRequest request, ISuccess success,
-                      IFailure failure, IError error,
-                      RequestBody body, LoaderStyle loaderStyle, File file, Context context) {
+    RestClient(String url, WeakHashMap<String, Object> params,
+               String downloadDir, String extension, String name, IRequest request, ISuccess success,
+               IFailure failure, IError error,
+               RequestBody body, LoaderStyle loaderStyle, File file, Context context) {
         this.URL = url;
+        this.DOWNLOAD_DIR = downloadDir;
+        this.EXTENSION = extension;
+        this.NAME = name;
         this.LOADER_STYLE = loaderStyle;
         this.FILE = file;
         this.CONTEXT = context;
@@ -90,9 +100,9 @@ public class RestClient {
                 call = restService.delete(URL, PARAMS);
                 break;
             case UPLOAD:
-                final RequestBody requestBody=RequestBody.create(MediaType.parse(MultipartBody.FORM.toString()), FILE);
-                final MultipartBody.Part body=MultipartBody.Part.createFormData("file",FILE.getName(),requestBody);
-                call=restService.upload(URL, body);
+                final RequestBody requestBody = RequestBody.create(MediaType.parse(MultipartBody.FORM.toString()), FILE);
+                final MultipartBody.Part body = MultipartBody.Part.createFormData("file", FILE.getName(), requestBody);
+                call = restService.upload(URL, body);
                 break;
             default:
                 break;
@@ -133,5 +143,13 @@ public class RestClient {
         request(HttpMethod.DELETE);
     }
 
+    public final void upload() {
+        request(HttpMethod.UPLOAD);
+    }
 
+    public final void download() {
+        new DownloadHandler(URL, DOWNLOAD_DIR, EXTENSION,
+                NAME, REQUEST, SUCCESS, FAILURE, ERROR)
+                .handleDownload();
+    }
 }

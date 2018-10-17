@@ -9,6 +9,7 @@ import cn.fxn.svm.fxn_core.delegates.EcDelegate;
 import cn.fxn.svm.fxn_core.net.RestClient;
 import cn.fxn.svm.fxn_core.net.callback.IError;
 import cn.fxn.svm.fxn_core.net.callback.IFailure;
+import cn.fxn.svm.fxn_core.net.callback.IRequest;
 import cn.fxn.svm.fxn_core.net.callback.ISuccess;
 
 /**
@@ -49,6 +50,17 @@ public class ExampleDelegate extends EcDelegate {
                     @Override
                     public void onError(int code, String msg) {
                         Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .onRequest(new IRequest() {
+                    @Override
+                    public void onRequestStart() {
+
+                    }
+
+                    @Override
+                    public void onRequestEnd() {
+
                     }
                 })
                 .build()
