@@ -13,23 +13,33 @@ import java.util.HashMap;
 public final class EC {
     /**
      * 初始化Context
+     *
      * @param context
      * @return
      */
-    public static Configurator init(Context context){
-        getConfigurations().put(ConfigType.APPLICATION_CONTEXT.name(), context);
+    public static Configurator init(Context context) {
+        getConfigurations().put(ConfigKeys.APPLICATION_CONTEXT, context);
         return Configurator.getInstance();
     }
 
-    public static HashMap<String,Object> getConfigurations(){
+    public static HashMap<Object, Object> getConfigurations() {
         return Configurator.getInstance().getEcConfigs();
     }
 
     /**
      * 获取context
+     *
      * @return
      */
-    public static Context getApplication(){
-        return (Context) getConfigurations().get(ConfigType.APPLICATION_CONTEXT.name());
+    public static Context getApplication() {
+        return getConfiguration(ConfigKeys.APPLICATION_CONTEXT);
+    }
+
+    public static <T> T getConfiguration(Object key) {
+        return getConfigurator().getConfiguration(key);
+    }
+
+    public static Configurator getConfigurator() {
+        return Configurator.getInstance();
     }
 }

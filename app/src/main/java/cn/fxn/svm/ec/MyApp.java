@@ -5,6 +5,7 @@ import android.app.Application;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
 import cn.fxn.svm.fxn_core.app.EC;
+import cn.fxn.svm.fxn_core.net.interceptors.DebugInterceptor;
 import cn.fxn.svm.fxn_ec.icon.FontEcModule;
 
 /**
@@ -20,7 +21,8 @@ public class MyApp extends Application {
         EC.init(this)
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontEcModule())
-                .withApiHost("http://127.0.0.1")
+                .withApiHost("http://news.baidu.com/")
+                .withInterceptor(new DebugInterceptor("guonei", R.raw.test))
                 .configure();
     }
 }

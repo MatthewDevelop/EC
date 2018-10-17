@@ -6,9 +6,10 @@ package cn.fxn.svm.fxn_core.app;
  * @email:guocheng0816@163.com
  * @func:配置项枚举
  */
-public enum ConfigType {
+public enum ConfigKeys {
     API_HOST,
     APPLICATION_CONTEXT,
     CONFIG_READY,
-    ICON
+    ICON,
+    INTERCEPTOR
 }

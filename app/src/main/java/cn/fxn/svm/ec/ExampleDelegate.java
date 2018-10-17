@@ -32,12 +32,12 @@ public class ExampleDelegate extends EcDelegate {
 
     private void testRestClient() {
         RestClient.builder()
-                .url("https://www.baidu.com")
+                .url("http://news.baidu.com/guonei")
                 .loader(getContext())
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-//                        Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .failure(new IFailure() {
