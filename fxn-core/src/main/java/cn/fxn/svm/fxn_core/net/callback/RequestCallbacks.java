@@ -2,8 +2,8 @@ package cn.fxn.svm.fxn_core.net.callback;
 
 import android.os.Handler;
 
-import cn.fxn.svm.fxn_core.ui.EcLoader;
-import cn.fxn.svm.fxn_core.ui.LoaderStyle;
+import cn.fxn.svm.fxn_core.ui.loader.EcLoader;
+import cn.fxn.svm.fxn_core.ui.loader.LoaderStyle;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

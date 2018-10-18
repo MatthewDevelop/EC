@@ -9,7 +9,7 @@ import cn.fxn.svm.fxn_core.net.callback.IError;
 import cn.fxn.svm.fxn_core.net.callback.IFailure;
 import cn.fxn.svm.fxn_core.net.callback.IRequest;
 import cn.fxn.svm.fxn_core.net.callback.ISuccess;
-import cn.fxn.svm.fxn_core.ui.LoaderStyle;
+import cn.fxn.svm.fxn_core.ui.loader.LoaderStyle;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 

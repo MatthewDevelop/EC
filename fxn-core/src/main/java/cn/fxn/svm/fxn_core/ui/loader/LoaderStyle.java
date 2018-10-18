@@ -1,4 +1,4 @@
-package cn.fxn.svm.fxn_core.ui;
+package cn.fxn.svm.fxn_core.ui.loader;
 
 /**
  * @author:Matthew

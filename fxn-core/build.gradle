@@ -28,6 +28,7 @@ dependencies {
     api 'com.android.support:appcompat-v7:28.0.0'
     api 'com.android.support:support-v4:28.0.0'
     api 'com.android.support:support-v13:28.0.0'
+    api group: 'com.android.support', name: 'recyclerview-v7', version: '28.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -47,6 +48,11 @@ dependencies {
     api 'com.squareup.okhttp3:okhttp:3.11.0'
     api 'com.squareup.okio:okio:2.1.0'
     api 'com.squareup.retrofit2:converter-scalars:2.4.0'
-    //loader
+    //loader依赖
     api 'com.wang.avi:library:2.1.3'
+    //banner依赖
+    api 'com.bigkoo:ConvenientBanner:2.1.4'
+    api 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
+    //json依赖
+    api 'com.alibaba:fastjson:1.2.51'
 }
