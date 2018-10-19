@@ -6,6 +6,7 @@ import android.util.Log;
 import java.io.IOException;
 
 import cn.fxn.svm.fxn_core.util.file.FileUtil;
+import cn.fxn.svm.fxn_core.util.log.EcLogger;
 import okhttp3.MediaType;
 import okhttp3.Protocol;
 import okhttp3.Response;
@@ -46,7 +47,6 @@ public class DebugInterceptor extends BaseInterceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         final String url=chain.request().url().toString();
-        Log.e(TAG, "intercept: "+url );
         if(url.contains(DEBUG_URL)){
             return debugResponse(chain, DEBUG_RAW_ID);
         }

@@ -19,7 +19,6 @@ public class LauncherHolderCreator implements CBViewHolderCreator {
 
     @Override
     public Holder createHolder(View itemView) {
-        Log.e(TAG, "createHolder: "+(itemView==null) );
         return new LauncherHolder(itemView);
     }
 

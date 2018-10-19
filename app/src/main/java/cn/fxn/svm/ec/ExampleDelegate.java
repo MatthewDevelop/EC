@@ -11,6 +11,7 @@ import cn.fxn.svm.fxn_core.net.callback.IError;
 import cn.fxn.svm.fxn_core.net.callback.IFailure;
 import cn.fxn.svm.fxn_core.net.callback.IRequest;
 import cn.fxn.svm.fxn_core.net.callback.ISuccess;
+import cn.fxn.svm.fxn_core.util.log.EcLogger;
 
 /**
  * @author:Matthew
@@ -19,6 +20,7 @@ import cn.fxn.svm.fxn_core.net.callback.ISuccess;
  * @func:
  */
 public class ExampleDelegate extends EcDelegate {
+    private static final String TAG = "ExampleDelegate";
 
     @Override
     public Object setLayout() {
@@ -32,11 +34,12 @@ public class ExampleDelegate extends EcDelegate {
 
     private void testRestClient() {
         RestClient.builder()
-                .url("http://news.baidu.com/guonei")
+                .url("user_profile.json")
                 .loader(getContext())
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
+                        EcLogger.e(TAG, response);
                         Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
                     }
                 })

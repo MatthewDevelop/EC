@@ -7,7 +7,7 @@ import android.support.v7.app.ActionBar;
 import cn.fxn.svm.fxn_core.activities.ProxyActivity;
 import cn.fxn.svm.fxn_core.delegates.EcDelegate;
 import cn.fxn.svm.fxn_ec.launcher.LauncherDelegate;
-import cn.fxn.svm.fxn_ec.launcher.LauncherScrollDelegate;
+import cn.fxn.svm.fxn_ec.sign.SignUpDelegate;
 
 /**
  * @author:Matthew
@@ -27,6 +27,6 @@ public class ExampleActivity extends ProxyActivity {
 
     @Override
     public EcDelegate setRootDelegate() {
-        return new LauncherDelegate();
+        return new SignUpDelegate();
     }
 }
