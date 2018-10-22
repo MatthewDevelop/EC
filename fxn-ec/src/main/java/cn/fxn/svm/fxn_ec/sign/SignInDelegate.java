@@ -1,5 +1,6 @@
 package cn.fxn.svm.fxn_ec.sign;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -10,6 +11,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.fxn.svm.fxn_core.delegates.EcDelegate;
 import cn.fxn.svm.fxn_core.net.RestClient;
+import cn.fxn.svm.fxn_core.net.callback.ISuccess;
+import cn.fxn.svm.fxn_core.util.log.EcLogger;
 import cn.fxn.svm.fxn_ec.R;
 import cn.fxn.svm.fxn_ec.R2;
 
@@ -20,27 +23,41 @@ import cn.fxn.svm.fxn_ec.R2;
  * @func:
  */
 public class SignInDelegate extends EcDelegate {
+    private static final String TAG = "SignInDelegate";
 
     @BindView(R2.id.et_sign_in_email)
     TextInputEditText mEmail = null;
     @BindView(R2.id.et_sign_in_password)
     TextInputEditText mPassword = null;
 
+    private ISignListener mISignListener = null;
 
-    @OnClick(R2.id.bt_sign_in)
-    void onClickSignIn() {
-        if(checkForm()){
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ISignListener) {
+            mISignListener = (ISignListener) activity;
         }
     }
 
-    @OnClick(R2.id.itv_wechat_sign_in)
-    void onClickWeChatSignIn(){
-
-    }
-
-    @OnClick(R2.id.tv_link_sign_up)
-    void onClickLinkSignUp(){
-        start(new SignUpDelegate());
+    @OnClick(R2.id.bt_sign_in)
+    void onClickSignIn() {
+        if (checkForm()) {
+            RestClient.builder()
+                    .url("user_profile.json")
+                    .params("email", mEmail.getText().toString())
+                    .params("password", mPassword.getText().toString())
+                    .success(new ISuccess() {
+                        @Override
+                        public void onSuccess(String response) {
+                            EcLogger.json(TAG, response);
+                            SignHandler.onSignIn(response, mISignListener);
+                        }
+                    })
+                    .build()
+                    .post();
+//            Toast.makeText(getContext(), "注册成功！", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -70,6 +87,16 @@ public class SignInDelegate extends EcDelegate {
         }
 
         return isPass;
+    }
+
+    @OnClick(R2.id.itv_wechat_sign_in)
+    void onClickWeChatSignIn() {
+
+    }
+
+    @OnClick(R2.id.tv_link_sign_up)
+    void onClickLinkSignUp() {
+        start(new SignUpDelegate());
     }
 
     @Override

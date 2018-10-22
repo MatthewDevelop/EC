@@ -1,5 +1,6 @@
 package cn.fxn.svm.fxn_ec.sign;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -42,22 +43,35 @@ public class SignUpDelegate extends EcDelegate {
     @BindView(R2.id.et_sign_up_repeat_password)
     TextInputEditText mRePassword = null;
 
+    private ISignListener mISignListener=null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof ISignListener){
+            mISignListener= (ISignListener) activity;
+        }
+    }
+
     @OnClick(R2.id.bt_sign_up)
     void onClickSignUp() {
         if (checkForm()) {
             RestClient.builder()
                     .url("user_profile.json")
-                    .params("", "")
+                    .params("name", mName.getText().toString())
+                    .params("email", mEmail.getText().toString())
+                    .params("phone", mPhone.getText().toString())
+                    .params("password", mPassword.getText().toString())
                     .success(new ISuccess() {
                         @Override
                         public void onSuccess(String response) {
                             EcLogger.json(TAG, response);
-                            SignHandler.onSignUp(response);
+                            SignHandler.onSignUp(response,mISignListener);
                         }
                     })
                     .build()
                     .post();
-            Toast.makeText(getContext(), "注册成功！", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "注册成功！", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -110,7 +124,7 @@ public class SignUpDelegate extends EcDelegate {
             mRePassword.setError(null);
         }
 
-        return true;
+        return isPass;
     }
 
     @OnClick(R2.id.tv_link_sign_in)

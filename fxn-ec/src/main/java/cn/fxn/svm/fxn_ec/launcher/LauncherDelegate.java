@@ -1,5 +1,6 @@
 package cn.fxn.svm.fxn_ec.launcher;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
@@ -10,7 +11,11 @@ import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.fxn.svm.fxn_core.app.AccountManager;
+import cn.fxn.svm.fxn_core.app.IUserChecker;
 import cn.fxn.svm.fxn_core.delegates.EcDelegate;
+import cn.fxn.svm.fxn_core.ui.launcher.ILauncherListener;
+import cn.fxn.svm.fxn_core.ui.launcher.OnLauncherFinishTag;
 import cn.fxn.svm.fxn_core.util.storage.EcPreference;
 import cn.fxn.svm.fxn_core.util.timer.BaseTimerTask;
 import cn.fxn.svm.fxn_core.util.timer.ITimerListener;
@@ -28,6 +33,8 @@ public class LauncherDelegate extends EcDelegate implements ITimerListener {
     @BindView(R2.id.tv_timer)
     AppCompatTextView mTvTimer;
 
+    private ILauncherListener mILauncherListener=null;
+
     private Timer mTimer;
     private int count=5;
 
@@ -37,6 +44,14 @@ public class LauncherDelegate extends EcDelegate implements ITimerListener {
             mTimer.cancel();
             mTimer=null;
             checkIsShowScrollLauncher();
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof ILauncherListener){
+            mILauncherListener= (ILauncherListener) activity;
         }
     }
 
@@ -51,6 +66,21 @@ public class LauncherDelegate extends EcDelegate implements ITimerListener {
             start(new LauncherScrollDelegate(), SINGLETASK);
         }else {
             //检查用户登陆信息
+            AccountManager.checkAccount(new IUserChecker() {
+                @Override
+                public void onSignIn() {
+                    if(mILauncherListener!=null){
+                        mILauncherListener.onLauncherFinish(OnLauncherFinishTag.SIGNED);
+                    }
+                }
+
+                @Override
+                public void onNotSignIn() {
+                    if (mILauncherListener!=null){
+                        mILauncherListener.onLauncherFinish(OnLauncherFinishTag.NOT_SIGNED);
+                    }
+                }
+            });
         }
     }
 

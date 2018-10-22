@@ -29,7 +29,7 @@ public class ExampleDelegate extends EcDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-        testRestClient();
+        //testRestClient();
     }
 
     private void testRestClient() {
