@@ -6,9 +6,11 @@ import android.support.v7.app.ActionBar;
 import android.widget.Toast;
 
 import cn.fxn.svm.fxn_core.activities.ProxyActivity;
+import cn.fxn.svm.fxn_core.app.EC;
 import cn.fxn.svm.fxn_core.delegates.EcDelegate;
 import cn.fxn.svm.fxn_core.ui.launcher.ILauncherListener;
 import cn.fxn.svm.fxn_core.ui.launcher.OnLauncherFinishTag;
+import cn.fxn.svm.fxn_core.ui.loader.EcLoader;
 import cn.fxn.svm.fxn_ec.launcher.LauncherDelegate;
 import cn.fxn.svm.fxn_ec.sign.ISignListener;
 import cn.fxn.svm.fxn_ec.sign.SignInDelegate;
@@ -28,6 +30,7 @@ public class ExampleActivity extends ProxyActivity implements ISignListener, ILa
         if (actionBar != null) {
             actionBar.hide();
         }
+        EC.getConfigurator().withActivity(this);
     }
 
     @Override

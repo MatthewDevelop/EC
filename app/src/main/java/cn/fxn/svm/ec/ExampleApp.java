@@ -28,6 +28,8 @@ public class ExampleApp extends Application {
                 .withIcon(new FontEcModule())
                 .withApiHost("http://192.168.137.38:8080/")
                 .withInterceptor(new DebugInterceptor("hello", R.raw.test))
+                .withWeChatAppId("")
+                .withWeChatAppSecret("")
                 .configure();
         Logger.addLogAdapter(new AndroidLogAdapter());
         initStetho();

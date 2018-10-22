@@ -13,6 +13,8 @@ import cn.fxn.svm.fxn_core.delegates.EcDelegate;
 import cn.fxn.svm.fxn_core.net.RestClient;
 import cn.fxn.svm.fxn_core.net.callback.ISuccess;
 import cn.fxn.svm.fxn_core.util.log.EcLogger;
+import cn.fxn.svm.fxn_core.wechat.EcWeChat;
+import cn.fxn.svm.fxn_core.wechat.callbacks.IWeChatSignInCallback;
 import cn.fxn.svm.fxn_ec.R;
 import cn.fxn.svm.fxn_ec.R2;
 
@@ -91,7 +93,14 @@ public class SignInDelegate extends EcDelegate {
 
     @OnClick(R2.id.itv_wechat_sign_in)
     void onClickWeChatSignIn() {
+        EcWeChat.getInstance()
+                .onSignInSuccess(new IWeChatSignInCallback() {
+                    @Override
+                    public void onSignInSuccess(String userInfo) {
 
+                    }
+                })
+                .signIn();
     }
 
     @OnClick(R2.id.tv_link_sign_up)
