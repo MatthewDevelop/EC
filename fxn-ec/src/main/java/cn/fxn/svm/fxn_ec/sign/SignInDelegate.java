@@ -17,6 +17,7 @@ import cn.fxn.svm.fxn_core.wechat.EcWeChat;
 import cn.fxn.svm.fxn_core.wechat.callbacks.IWeChatSignInCallback;
 import cn.fxn.svm.fxn_ec.R;
 import cn.fxn.svm.fxn_ec.R2;
+import cn.fxn.svm.fxn_ec.main.EcBottomDelegate;
 
 /**
  * @author:Matthew
@@ -97,7 +98,6 @@ public class SignInDelegate extends EcDelegate {
                 .onSignInSuccess(new IWeChatSignInCallback() {
                     @Override
                     public void onSignInSuccess(String userInfo) {
-
                     }
                 })
                 .signIn();
