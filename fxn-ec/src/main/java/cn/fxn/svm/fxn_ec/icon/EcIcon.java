@@ -10,7 +10,8 @@ import com.joanzapata.iconify.Icon;
  */
 public enum EcIcon implements Icon {
     font_ali_pay('\ue634'),
-    font_wechat_pay('\ue612');
+    font_wechat_pay('\ue612'),
+    font_scan('\ue674');
 
     private char character;
 

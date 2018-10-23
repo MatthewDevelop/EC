@@ -1,6 +1,7 @@
 package cn.fxn.svm.fxn_core.app;
 
 import android.content.Context;
+import android.os.Handler;
 
 import java.util.HashMap;
 
@@ -33,6 +34,10 @@ public final class EC {
      */
     public static Context getApplication() {
         return getConfiguration(ConfigKeys.APPLICATION_CONTEXT);
+    }
+
+    public static Handler getHandler(){
+        return getConfiguration(ConfigKeys.HANDLER);
     }
 
     public static <T> T getConfiguration(Object key) {
