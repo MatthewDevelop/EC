@@ -98,6 +98,7 @@ public class SignInDelegate extends EcDelegate {
                 .onSignInSuccess(new IWeChatSignInCallback() {
                     @Override
                     public void onSignInSuccess(String userInfo) {
+                        //微信登录成功回调
                     }
                 })
                 .signIn();
@@ -105,7 +106,7 @@ public class SignInDelegate extends EcDelegate {
 
     @OnClick(R2.id.tv_link_sign_up)
     void onClickLinkSignUp() {
-        start(new SignUpDelegate());
+        startWithPop(new SignUpDelegate());
     }
 
     @Override

@@ -71,7 +71,6 @@ public class SignUpDelegate extends EcDelegate {
                     })
                     .build()
                     .post();
-//            Toast.makeText(getContext(), "注册成功！", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -129,7 +128,7 @@ public class SignUpDelegate extends EcDelegate {
 
     @OnClick(R2.id.tv_link_sign_in)
     void onClickLinkSignUp() {
-        start(new SignInDelegate());
+        startWithPop(new SignInDelegate());
     }
 
     @Override
