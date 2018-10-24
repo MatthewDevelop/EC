@@ -3,6 +3,7 @@ package cn.fxn.svm.fxn_ec.main.index;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -41,7 +42,7 @@ public class IndexDelegate extends BottomItemDelegate {
     @BindView(R2.id.ic_index_message)
     IconTextView mIcMessage = null;
 
-    private RefreshHandler mRefreshHandler=null;
+    private RefreshHandler mRefreshHandler = null;
 
     @Override
     public Object setLayout() {
@@ -50,27 +51,15 @@ public class IndexDelegate extends BottomItemDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-        mRefreshHandler=new RefreshHandler(mSwipeRefreshLayout);
-        RestClient.builder()
-                .url("index.json")
-                .success(new ISuccess() {
-                    @Override
-                    public void onSuccess(String response) {
-                        final IndexDataConvert convert=new IndexDataConvert();
-                        final ArrayList<MultipleItemEntity> multipleItemEntities = convert.setJsonData(response).convert();
-                        final String imageUrl=multipleItemEntities.get(0).getField(MultipleFields.IMAGE_URL);
-                        Toast.makeText(getContext(), imageUrl, Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .build()
-                .get();
+        mRefreshHandler = RefreshHandler.create(mSwipeRefreshLayout, mRecyclerView, new IndexDataConvert());
     }
 
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         initRefreshLayout();
-//        mRefreshHandler.firstPage("user_profile.json");
+        initRecyclerView();
+        mRefreshHandler.firstPage("index.json");
     }
 
     private void initRefreshLayout() {
@@ -79,5 +68,10 @@ public class IndexDelegate extends BottomItemDelegate {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         mSwipeRefreshLayout.setProgressViewOffset(true, 120, 300);
+    }
+
+    private void initRecyclerView() {
+        final GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
+        mRecyclerView.setLayoutManager(manager);
     }
 }

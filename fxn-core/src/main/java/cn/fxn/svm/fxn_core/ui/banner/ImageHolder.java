@@ -20,7 +20,7 @@ import cn.fxn.svm.fxn_core.app.EC;
  */
 public class ImageHolder extends Holder<String> {
 
-    private AppCompatImageView mImageView = null;
+    private AppCompatImageView mImageView;
 
     public ImageHolder(View itemView) {
         super(itemView);
@@ -33,14 +33,12 @@ public class ImageHolder extends Holder<String> {
 
     @Override
     public void updateUI(String imageUrl) {
-        if (mImageView != null) {
-            Glide.with(EC.getApplication())
-                    .load(imageUrl)
-                    .apply(new RequestOptions()
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .dontAnimate()
-                            .centerCrop())
-                    .into(mImageView);
-        }
+        Glide.with(EC.getApplication())
+                .load(imageUrl)
+                .apply(new RequestOptions()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .dontAnimate()
+                        .centerCrop())
+                .into(mImageView);
     }
 }

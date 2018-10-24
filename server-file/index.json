@@ -6,18 +6,49 @@
   "data": [
     {
       "goodsId": 0,
+      "spanSize": 2,
+      "imageUrl": "https://i8.mifile.cn/b2c-mimall-media/b366a1c48045c12865a9fcf95936cc32.png"
+    },
+    {
+      "goodsId": 0,
+      "spanSize": 2,
+      "imageUrl": "https://i8.mifile.cn/b2c-mimall-media/b366a1c48045c12865a9fcf95936cc32.png"
+    },
+    {
+      "goodsId": 0,
+      "spanSize": 2,
+      "text": "测试描述"
+    },
+    {
+      "goodsId": 0,
+      "spanSize": 2,
+      "text": "测试描述"
+    },
+    {
+      "goodsId": 0,
       "spanSize": 4,
-      "text":"测试描述",
-      "imageUrl": "https://www.baidu.com/s?wd=%E4%BB%8A%E6%97%A5%E6%96%B0%E9%B2%9C%E4%BA%8B&tn=SE_Pclogo_6ysd4c7a&sa=ire_dl_gh_logo&rsv_dl=igh_logo_pc"
+      "text": "测试描述"
     },
     {
       "goodsId": 1,
       "spanSize": 4,
       "banners": [
-        "https://www.baidu.com/s?wd=%E4%BB%8A%E6%97%A5%E6%96%B0%E9%B2%9C%E4%BA%8B&tn=SE_Pclogo_6ysd4c7a&sa=ire_dl_gh_logo&rsv_dl=igh_logo_pc",
-        "https://www.baidu.com/s?wd=%E4%BB%8A%E6%97%A5%E6%96%B0%E9%B2%9C%E4%BA%8B&tn=SE_Pclogo_6ysd4c7a&sa=ire_dl_gh_logo&rsv_dl=igh_logo_pc",
-        "https://www.baidu.com/s?wd=%E4%BB%8A%E6%97%A5%E6%96%B0%E9%B2%9C%E4%BA%8B&tn=SE_Pclogo_6ysd4c7a&sa=ire_dl_gh_logo&rsv_dl=igh_logo_pc"
+        "https://i8.mifile.cn/b2c-mimall-media/b366a1c48045c12865a9fcf95936cc32.png",
+        "https://i8.mifile.cn/b2c-mimall-media/b366a1c48045c12865a9fcf95936cc32.png",
+        "https://i8.mifile.cn/b2c-mimall-media/b366a1c48045c12865a9fcf95936cc32.png"
       ]
+    },
+    {
+      "goodsId": 3,
+      "spanSize": 2,
+      "text": "测试描述",
+      "imageUrl": "https://i8.mifile.cn/b2c-mimall-media/b366a1c48045c12865a9fcf95936cc32.png"
+    },
+    {
+      "goodsId": 4,
+      "spanSize": 2,
+      "text": "测试描述",
+      "imageUrl": "https://i8.mifile.cn/b2c-mimall-media/b366a1c48045c12865a9fcf95936cc32.png"
     }
   ]
 }

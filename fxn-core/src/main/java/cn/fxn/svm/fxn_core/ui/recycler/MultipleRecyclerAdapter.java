@@ -17,6 +17,7 @@ import java.util.List;
 
 import cn.fxn.svm.fxn_core.R;
 import cn.fxn.svm.fxn_core.ui.banner.BannerCreator;
+import cn.fxn.svm.fxn_core.util.log.EcLogger;
 
 /**
  * @author:Matthew
@@ -27,6 +28,7 @@ import cn.fxn.svm.fxn_core.ui.banner.BannerCreator;
 public class MultipleRecyclerAdapter
         extends BaseMultiItemQuickAdapter<MultipleItemEntity, MultipleViewHolder>
         implements BaseQuickAdapter.SpanSizeLookup, OnItemClickListener {
+    private static final String TAG = "MultipleRecyclerAdapter";
     /**
      * 初始化一次banner
      */
@@ -48,7 +50,7 @@ public class MultipleRecyclerAdapter
         addItemType(ItemType.TEXT, R.layout.item_multiple_text);
         addItemType(ItemType.IMAGE, R.layout.item_multiple_image);
         addItemType(ItemType.TEXT_IMAGE, R.layout.item_multiple_image_text);
-        addItemType(ItemType.BANNER, R.layout.item_multiple_image_text);
+        addItemType(ItemType.BANNER, R.layout.item_multiple_banner);
         //设置宽度监听
         setSpanSizeLookup(this);
         openLoadAnimation();
@@ -105,6 +107,7 @@ public class MultipleRecyclerAdapter
                 if (!isInitBanner) {
                     bannerImages = entity.getField(MultipleFields.BANNERS);
                     final ConvenientBanner<String> convenientBanner = holder.getView(R.id.banner_recycler);
+                    EcLogger.e(TAG, (convenientBanner==null)+"");
                     BannerCreator.setDefault(convenientBanner, bannerImages, this);
                     isInitBanner = true;
                 }
