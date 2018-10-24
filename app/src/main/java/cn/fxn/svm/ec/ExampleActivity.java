@@ -14,6 +14,7 @@ import cn.fxn.svm.fxn_ec.launcher.LauncherDelegate;
 import cn.fxn.svm.fxn_ec.main.EcBottomDelegate;
 import cn.fxn.svm.fxn_ec.sign.ISignListener;
 import cn.fxn.svm.fxn_ec.sign.SignInDelegate;
+import qiu.niorgai.StatusBarCompat;
 
 /**
  * @author:Matthew
@@ -30,6 +31,7 @@ public class ExampleActivity extends ProxyActivity implements ISignListener, ILa
             actionBar.hide();
         }
         EC.getConfigurator().withActivity(this);
+        StatusBarCompat.translucentStatusBar(this,true);
     }
 
     @Override

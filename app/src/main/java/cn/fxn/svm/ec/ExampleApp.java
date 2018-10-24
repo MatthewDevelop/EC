@@ -20,13 +20,19 @@ import cn.fxn.svm.fxn_ec.icon.FontEcModule;
  * @func:
  */
 public class ExampleApp extends Application {
+
+    public static final String HOME_URL="http://192.168.0.101:8080/";
+    public static final String WORK_URL="http://192.168.137.38:8080/";
+
+
     @Override
     public void onCreate() {
         super.onCreate();
         EC.init(this)
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontEcModule())
-                .withApiHost("http://192.168.137.38:8080/")
+                .withApiHost(HOME_URL)
+//                .withApiHost(WORK_URL)
                 .withInterceptor(new DebugInterceptor("hello", R.raw.test))
                 .withWeChatAppId("")
                 .withWeChatAppSecret("")

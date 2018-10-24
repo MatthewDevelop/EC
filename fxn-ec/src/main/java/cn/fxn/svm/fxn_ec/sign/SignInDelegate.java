@@ -11,6 +11,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.fxn.svm.fxn_core.delegates.EcDelegate;
 import cn.fxn.svm.fxn_core.net.RestClient;
+import cn.fxn.svm.fxn_core.net.callback.IFailure;
 import cn.fxn.svm.fxn_core.net.callback.ISuccess;
 import cn.fxn.svm.fxn_core.util.log.EcLogger;
 import cn.fxn.svm.fxn_core.wechat.EcWeChat;
@@ -46,6 +47,7 @@ public class SignInDelegate extends EcDelegate {
     @OnClick(R2.id.bt_sign_in)
     void onClickSignIn() {
         if (checkForm()) {
+            EcLogger.d("POST");
             RestClient.builder()
                     .url("user_profile.json")
                     .params("email", mEmail.getText().toString())
@@ -57,9 +59,14 @@ public class SignInDelegate extends EcDelegate {
                             SignHandler.onSignIn(response, mISignListener);
                         }
                     })
+                    .failure(new IFailure() {
+                        @Override
+                        public void onFailure() {
+                            EcLogger.d("failed");
+                        }
+                    })
                     .build()
                     .post();
-//            Toast.makeText(getContext(), "注册成功！", Toast.LENGTH_SHORT).show();
         }
     }
 
