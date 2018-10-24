@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="white" type="color">#f1f1f1</item>
+    <item name="app_background" type="color">#1111</item>
 </resources>

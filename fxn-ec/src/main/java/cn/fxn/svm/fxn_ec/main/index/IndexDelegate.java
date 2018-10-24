@@ -2,6 +2,7 @@ package cn.fxn.svm.fxn_ec.main.index;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import butterknife.BindView;
 import cn.fxn.svm.fxn_core.delegates.bottom.BottomItemDelegate;
 import cn.fxn.svm.fxn_core.net.RestClient;
 import cn.fxn.svm.fxn_core.net.callback.ISuccess;
+import cn.fxn.svm.fxn_core.ui.recycler.BaseDecoration;
 import cn.fxn.svm.fxn_core.ui.recycler.MultipleFields;
 import cn.fxn.svm.fxn_core.ui.recycler.MultipleItemEntity;
 import cn.fxn.svm.fxn_core.ui.refresh.RefreshHandler;
@@ -73,5 +75,8 @@ public class IndexDelegate extends BottomItemDelegate {
     private void initRecyclerView() {
         final GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
         mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.addItemDecoration(
+                BaseDecoration.create(ContextCompat.getColor(getContext(), R.color.app_background),
+                        5));
     }
 }
