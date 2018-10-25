@@ -31,7 +31,6 @@ public class ExampleActivity extends ProxyActivity implements ISignListener, ILa
             actionBar.hide();
         }
         EC.getConfigurator().withActivity(this);
-        StatusBarCompat.translucentStatusBar(this,true);
     }
 
     @Override

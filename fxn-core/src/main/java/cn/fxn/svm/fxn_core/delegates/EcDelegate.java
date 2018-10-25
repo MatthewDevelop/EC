@@ -6,5 +6,11 @@ package cn.fxn.svm.fxn_core.delegates;
  * @email:guocheng0816@163.com
  * @func:
  */
-public abstract class EcDelegate extends BaseDelegate {
+public abstract class EcDelegate extends PermissionCheckerDelegate {
+
+    @SuppressWarnings("unchecked")
+    public <T extends EcDelegate> T getParentDelegate() {
+        return (T) getParentFragment();
+    }
+
 }

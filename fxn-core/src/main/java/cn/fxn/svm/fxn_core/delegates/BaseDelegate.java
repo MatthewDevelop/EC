@@ -11,6 +11,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.fxn.svm.fxn_core.activities.ProxyActivity;
 import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
+import qiu.niorgai.StatusBarCompat;
 
 /**
  * @author:Matthew
@@ -38,6 +39,12 @@ public abstract class BaseDelegate extends SwipeBackFragment {
             onBindView(savedInstanceState, rootView);
         }
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        StatusBarCompat.translucentStatusBar(getProxyActivity(),true);
     }
 
     public abstract Object setLayout();

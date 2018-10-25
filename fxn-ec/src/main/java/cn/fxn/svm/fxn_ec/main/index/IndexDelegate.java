@@ -24,6 +24,7 @@ import cn.fxn.svm.fxn_core.ui.recycler.MultipleItemEntity;
 import cn.fxn.svm.fxn_core.ui.refresh.RefreshHandler;
 import cn.fxn.svm.fxn_ec.R;
 import cn.fxn.svm.fxn_ec.R2;
+import cn.fxn.svm.fxn_ec.main.EcBottomDelegate;
 
 /**
  * @author:Matthew
@@ -78,5 +79,8 @@ public class IndexDelegate extends BottomItemDelegate {
         mRecyclerView.addItemDecoration(
                 BaseDecoration.create(ContextCompat.getColor(getContext(), R.color.app_background),
                         5));
+        final EcBottomDelegate ecBottomDelegate=getParentDelegate();
+
+        mRecyclerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
     }
 }
