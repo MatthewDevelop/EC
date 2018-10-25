@@ -32,6 +32,6 @@ public class SortDelegate extends BottomItemDelegate {
         final VerticalListDelegate verticalListDelegate = new VerticalListDelegate();
         loadRootFragment(R.id.vertical_list_container, verticalListDelegate);
         //设置右侧第一个分类显示，默认显示分类1
-        loadRootFragment(R.id.sort_content_container, ContentDelegate.newInstance(1), false, true);
+        loadRootFragment(R.id.sort_content_container, ContentDelegate.newInstance(1), false, false);
     }
 }

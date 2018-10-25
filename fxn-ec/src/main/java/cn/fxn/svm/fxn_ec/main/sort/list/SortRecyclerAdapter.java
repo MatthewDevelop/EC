@@ -6,6 +6,7 @@ import android.view.View;
 
 import java.util.List;
 
+import cn.fxn.svm.fxn_core.delegates.EcDelegate;
 import cn.fxn.svm.fxn_core.ui.recycler.ItemType;
 import cn.fxn.svm.fxn_core.ui.recycler.MultipleFields;
 import cn.fxn.svm.fxn_core.ui.recycler.MultipleItemEntity;
@@ -13,6 +14,7 @@ import cn.fxn.svm.fxn_core.ui.recycler.MultipleRecyclerAdapter;
 import cn.fxn.svm.fxn_core.ui.recycler.MultipleViewHolder;
 import cn.fxn.svm.fxn_ec.R;
 import cn.fxn.svm.fxn_ec.main.sort.SortDelegate;
+import cn.fxn.svm.fxn_ec.main.sort.content.ContentDelegate;
 
 /**
  * @author:Matthew
@@ -64,7 +66,7 @@ public class SortRecyclerAdapter extends MultipleRecyclerAdapter {
 
                             //获取内容id
                             final int contentId=getData().get(currentPosition).getField(MultipleFields.ID);
-
+                            showContent(contentId);
                         }
                     }
                 });
@@ -82,6 +84,18 @@ public class SortRecyclerAdapter extends MultipleRecyclerAdapter {
                 break;
             default:
                 break;
+        }
+    }
+
+    private void showContent(int contentId){
+        final ContentDelegate delegate=ContentDelegate.newInstance(contentId);
+        switchContent(delegate);
+    }
+
+    private void switchContent(ContentDelegate delegate){
+        final EcDelegate contentDelegate=DELEGATE.findChildFragment(ContentDelegate.class);
+        if(contentDelegate!=null){
+            contentDelegate.replaceFragment(delegate, false);
         }
     }
 }
