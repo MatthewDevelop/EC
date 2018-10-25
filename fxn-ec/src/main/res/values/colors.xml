@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="white" type="color">#f1f1f1</item>
+    <item name="white" type="color">#ffffff</item>
     <item name="app_background" type="color">#1111</item>
+    <item name="we_chat_black" type="color">#323232</item>
+    <item name="item_background" type="color">#f1f1f1</item>
+    <item name="app_main" type="color">@android:color/holo_orange_dark</item>
 </resources>
