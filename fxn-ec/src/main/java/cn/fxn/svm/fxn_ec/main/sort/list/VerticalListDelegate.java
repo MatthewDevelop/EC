@@ -56,7 +56,7 @@ public class VerticalListDelegate extends EcDelegate {
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        EcLogger.d(response);
+//                        EcLogger.d(response);
                         final List<MultipleItemEntity> data =
                                 new VerticalListDataConverter()
                                         .setJsonData(response)

@@ -6,10 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
+import java.util.List;
+
 import butterknife.BindView;
 import cn.fxn.svm.fxn_core.delegates.EcDelegate;
 import cn.fxn.svm.fxn_core.net.RestClient;
 import cn.fxn.svm.fxn_core.net.callback.ISuccess;
+import cn.fxn.svm.fxn_core.util.log.EcLogger;
 import cn.fxn.svm.fxn_ec.R;
 import cn.fxn.svm.fxn_ec.R2;
 
@@ -25,6 +28,7 @@ public class ContentDelegate extends EcDelegate {
     @BindView(R2.id.rv_list_content)
     RecyclerView mRecyclerView;
     private int mContentId = -1;
+    private List<SectionBean> data=null;
 
     public static ContentDelegate newInstance(int contentId) {
         final Bundle args = new Bundle();
@@ -49,7 +53,11 @@ public class ContentDelegate extends EcDelegate {
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-
+                        EcLogger.d(response);
+                        data=new SectionDataConverter().convert(response);
+                        final SectionAdapter sectionAdapter=new SectionAdapter(R.layout.item_section_content,
+                                R.layout.item_section_header,data);
+                        mRecyclerView.setAdapter(sectionAdapter);
                     }
                 })
                 .build()
@@ -65,5 +73,6 @@ public class ContentDelegate extends EcDelegate {
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         final StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(manager);
+        initData();
     }
 }
