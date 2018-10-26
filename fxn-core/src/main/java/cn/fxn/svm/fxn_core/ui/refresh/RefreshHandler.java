@@ -62,7 +62,10 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
                         mAdapter = MultipleRecyclerAdapter.create(CONVERT.setJsonData(response));
                         mAdapter.setOnLoadMoreListener(RefreshHandler.this, RECYCLERVIEW);
                         RECYCLERVIEW.setAdapter(mAdapter);
-                        BEAN.addIndex();
+                        BEAN.setPageIndex(1);
+                        if(SWIPE_REFRESH_LAYOUT.isRefreshing()){
+                            SWIPE_REFRESH_LAYOUT.setRefreshing(false);
+                        }
                     }
                 })
                 .build()
@@ -76,12 +79,12 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
 
     private void refresh() {
         SWIPE_REFRESH_LAYOUT.setRefreshing(true);
-        EC.getHandler().postDelayed(new Runnable() {
+        EC.getHandler().post(new Runnable() {
             @Override
             public void run() {
-                SWIPE_REFRESH_LAYOUT.setRefreshing(false);
+                firstPage("index.json");
             }
-        }, 2000);
+        });
     }
 
     @Override

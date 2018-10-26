@@ -35,12 +35,4 @@ public class SectionContentItemEntity {
         this.goodsThumb = goodsThumb;
     }
 
-    @Override
-    public String toString() {
-        return "SectionContentItemEntity{" +
-                "goodsId=" + goodsId +
-                ", goodsName='" + goodsName + '\'' +
-                ", goodsThumb='" + goodsThumb + '\'' +
-                '}';
-    }
 }

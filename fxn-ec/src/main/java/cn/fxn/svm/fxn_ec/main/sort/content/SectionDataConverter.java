@@ -7,6 +7,8 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.fxn.svm.fxn_core.ui.recycler.DataConvert;
+import cn.fxn.svm.fxn_core.ui.recycler.MultipleItemEntity;
 import cn.fxn.svm.fxn_core.util.log.EcLogger;
 
 /**
@@ -30,16 +32,16 @@ public class SectionDataConverter {
             sectionTitleBean.setIsMore(true);
             dataList.add(sectionTitleBean);
 
-            final JSONArray goods=data.getJSONArray("goods");
+            final JSONArray goods = data.getJSONArray("goods");
             //商品内容循环
-            final int goodsSize=goods.size();
+            final int goodsSize = goods.size();
             for (int i1 = 0; i1 < goodsSize; i1++) {
-                final JSONObject contentItem=goods.getJSONObject(i1);
-                final int goodsId=contentItem.getInteger("goods_id");
-                final String goodsName=contentItem.getString("goods_name");
-                final String goodsThumb=contentItem.getString("goods_thumb");
+                final JSONObject contentItem = goods.getJSONObject(i1);
+                final int goodsId = contentItem.getInteger("goods_id");
+                final String goodsName = contentItem.getString("goods_name");
+                final String goodsThumb = contentItem.getString("goods_thumb");
                 //获取内容
-                final SectionContentItemEntity itemEntity=new SectionContentItemEntity();
+                final SectionContentItemEntity itemEntity = new SectionContentItemEntity();
                 itemEntity.setGoodsId(goodsId);
                 itemEntity.setGoodsName(goodsName);
                 itemEntity.setGoodsThumb(goodsThumb);
@@ -53,5 +55,4 @@ public class SectionDataConverter {
         EcLogger.d(dataList.toString());
         return dataList;
     }
-
 }

@@ -23,6 +23,7 @@ public class IndexDataConvert extends DataConvert {
 
     @Override
     public ArrayList<MultipleItemEntity> convert() {
+        final ArrayList<MultipleItemEntity> entities=new ArrayList<>();
         final JSONArray dataArray = JSON.parseObject(getJsonData()).getJSONArray("data");
         final int size = dataArray.size();
         for (int i = 0; i < size; i++) {
@@ -60,10 +61,10 @@ public class IndexDataConvert extends DataConvert {
                     .setField(MultipleFields.BANNERS, bannerImages)
                     .build();
 
-            ENTITIES.add(entity);
+            entities.add(entity);
 
         }
-        return ENTITIES;
+        return entities;
     }
 
 }

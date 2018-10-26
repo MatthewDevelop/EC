@@ -36,14 +36,4 @@ public class SectionBean extends SectionEntity<SectionContentItemEntity> {
         super(isHeader, header);
     }
 
-    @Override
-    public String toString() {
-        return "SectionBean{" +
-                "mIsMore=" + mIsMore +
-                ", mId=" + mId +
-                ", isHeader=" + isHeader +
-                ", t=" + t +
-                ", header='" + header + '\'' +
-                '}';
-    }
 }
