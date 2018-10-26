@@ -8,7 +8,23 @@
 <body>
 <div>
     <p id="ap">这是一个段落</p>
-    <a href="second.html">跳转</a>
+
+    <button id="test">测试事件</button>
 </div>
+
+<script type="text/javascript">
+
+    function nativeCall() {
+        alert('调用了');
+    }
+
+    document.getElementById('test').onclick = function () {
+        var command = {
+            'action': 'test'
+        }
+        ec.event(JSON.stringify(command))
+    }
+
+</script>
 </body>
 </html>

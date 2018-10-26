@@ -9,6 +9,8 @@ import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 
 import cn.fxn.svm.fxn_core.delegates.EcDelegate;
+import cn.fxn.svm.fxn_core.delegates.web.event.EventManager;
+import cn.fxn.svm.fxn_core.delegates.web.event.TestEvent;
 import cn.fxn.svm.fxn_core.delegates.web.route.RouteKeys;
 
 /**
@@ -83,6 +85,7 @@ public abstract class WebDelegate extends EcDelegate {
                 mWebView.setWebViewClient(initializer.initWebViewClient());
                 mWebView.setWebChromeClient(initializer.initWebChromeClient());
                 mWebView.addJavascriptInterface(EcWebInterface.create(this), "ec");
+                EventManager.getInstance().addEvent("test", new TestEvent());
                 mIsWebViewAvailable = true;
             } else {
                 throw new NullPointerException("initializer IS NULL");

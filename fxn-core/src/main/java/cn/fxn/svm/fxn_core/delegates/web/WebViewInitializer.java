@@ -1,5 +1,6 @@
 package cn.fxn.svm.fxn_core.delegates.web;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -14,6 +15,7 @@ import android.widget.TableRow;
  */
 public class WebViewInitializer {
 
+    @SuppressLint("SetJavaScriptEnabled")
     public WebView createWebView(WebView webView) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);
@@ -33,6 +35,8 @@ public class WebViewInitializer {
         });
         //初始化WebSettings
         final WebSettings settings = webView.getSettings();
+        //开放js权限
+        settings.setJavaScriptEnabled(true);
         final String ua = settings.getUserAgentString();
         settings.setUserAgentString(ua + "EC");
         //隐藏缩放控件
