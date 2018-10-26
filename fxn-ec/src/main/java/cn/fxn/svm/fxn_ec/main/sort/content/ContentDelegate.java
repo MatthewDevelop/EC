@@ -53,7 +53,6 @@ public class ContentDelegate extends EcDelegate {
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        EcLogger.d(response);
                         data=new SectionDataConverter().convert(response);
                         final SectionAdapter sectionAdapter=new SectionAdapter(R.layout.item_section_content,
                                 R.layout.item_section_header,data);

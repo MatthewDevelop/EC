@@ -52,7 +52,6 @@ public class SectionDataConverter {
             //商品内容循环结束
         }
         //section内容循环结束
-        EcLogger.d(dataList.toString());
         return dataList;
     }
 }
