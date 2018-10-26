@@ -1,9 +1,11 @@
-package cn.fxn.svm.fxn_core.delegates.web.event;
+package cn.fxn.svm.ec.event;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.webkit.WebView;
 import android.widget.Toast;
+
+import cn.fxn.svm.fxn_core.delegates.web.event.Event;
 
 /**
  * @author:Matthew

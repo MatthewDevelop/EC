@@ -2,6 +2,7 @@ package cn.fxn.svm.fxn_core.app;
 
 import android.app.Activity;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
@@ -9,6 +10,8 @@ import com.joanzapata.iconify.Iconify;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cn.fxn.svm.fxn_core.delegates.web.event.Event;
+import cn.fxn.svm.fxn_core.delegates.web.event.EventManager;
 import okhttp3.Interceptor;
 
 /**
@@ -73,6 +76,17 @@ public class Configurator {
     public final Configurator withInterceptors(ArrayList<Interceptor> interceptors) {
         INTERCEPTORS.addAll(interceptors);
         EC_CONFIGS.put(ConfigKeys.INTERCEPTOR, INTERCEPTORS);
+        return this;
+    }
+
+    public final Configurator withJavaScriptInterface(@NonNull String name){
+        EC_CONFIGS.put(ConfigKeys.JAVASCRIPT_INTERFACE, name);
+        return this;
+    }
+
+    public final Configurator withWebEvent(@NonNull String name, @NonNull Event event){
+        final EventManager eventManager=EventManager.getInstance();
+        eventManager.addEvent(name, event);
         return this;
     }
 

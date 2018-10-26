@@ -21,6 +21,12 @@ import cn.fxn.svm.fxn_core.util.log.EcLogger;
  */
 public class WebDelegateImpl extends WebDelegate implements IWebViewInitializer {
 
+    private IPageLoadListener mIPageLoadListener = null;
+
+    public void setIPageLoadListener(IPageLoadListener IPageLoadListener) {
+        mIPageLoadListener = IPageLoadListener;
+    }
+
     public static WebDelegateImpl create(String url) {
         final Bundle args = new Bundle();
         args.putString(RouteKeys.URL.name(), url);
@@ -58,6 +64,7 @@ public class WebDelegateImpl extends WebDelegate implements IWebViewInitializer 
     @Override
     public WebViewClient initWebViewClient() {
         final WebViewClientImpl client = new WebViewClientImpl(this);
+        client.setPageLoadListener(mIPageLoadListener);
         return client;
     }
 

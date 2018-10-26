@@ -45,7 +45,7 @@ public class EcLoader {
         final Window window = dialog.getWindow();
 
         if (window != null) {
-            WindowManager.LayoutParams layoutParams = window.getAttributes();
+            final WindowManager.LayoutParams layoutParams = window.getAttributes();
             layoutParams.width = deviceWidth / LOADER_SIZE_SCALE;
             layoutParams.height = deviceHeight / LOADER_SIZE_SCALE;
             layoutParams.height = layoutParams.height + deviceHeight / LOADER_OFFSET_SCALE;
@@ -61,9 +61,11 @@ public class EcLoader {
 
     public static void stopLoading() {
         for (AppCompatDialog dialog : LOADERS) {
-            if (dialog.isShowing()) {
-                dialog.cancel();
-                dialog.dismiss();
+            if (dialog!=null) {
+                if (dialog.isShowing()) {
+                    dialog.cancel();
+                    dialog.dismiss();
+                }
             }
         }
     }

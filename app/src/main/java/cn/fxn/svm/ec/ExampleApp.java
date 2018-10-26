@@ -9,6 +9,7 @@ import com.orhanobut.logger.Logger;
 
 
 import cn.fxn.svm.fxn_core.app.EC;
+import cn.fxn.svm.ec.event.TestEvent;
 import cn.fxn.svm.fxn_core.net.interceptors.DebugInterceptor;
 import cn.fxn.svm.fxn_ec.database.DatabaseManager;
 import cn.fxn.svm.fxn_ec.icon.FontEcModule;
@@ -34,8 +35,10 @@ public class ExampleApp extends Application {
 //                .withApiHost(HOME_URL)
                 .withApiHost(WORK_URL)
                 .withInterceptor(new DebugInterceptor("hello", R.raw.test))
-                .withWeChatAppId("")
-                .withWeChatAppSecret("")
+                .withWeChatAppId("wxfcdcecd9df8e0faa")
+                .withWeChatAppSecret("a0560f75335b06e3ebea70f29ff219bf")
+                .withJavaScriptInterface("ec")
+                .withWebEvent("test", new TestEvent())
                 .configure();
         Logger.addLogAdapter(new AndroidLogAdapter());
         initStetho();
