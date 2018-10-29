@@ -67,7 +67,7 @@ public class IndexDelegate extends BottomItemDelegate {
         initRecyclerView();
         mRefreshHandler.firstPage("index.json");
 //        onCallRxGet();
-        onCallRxRestClient();
+//        onCallRxRestClient();
     }
 
     private void initRefreshLayout() {

@@ -62,7 +62,7 @@ public class Configurator {
         return this;
     }
     public final Configurator withWebHost(String host) {
-        EC_CONFIGS.put(ConfigKeys.WEB_HOST.name(), host);
+        EC_CONFIGS.put(ConfigKeys.WEB_HOST, host);
         return this;
     }
 
@@ -113,7 +113,7 @@ public class Configurator {
         checkConfiguration();
         final Object value = EC_CONFIGS.get(key);
         if (value == null) {
-            throw new NullPointerException(key.toString() + "IS NULL");
+            throw new NullPointerException(key.toString() + " IS NULL");
         }
         return (T) value;
     }
