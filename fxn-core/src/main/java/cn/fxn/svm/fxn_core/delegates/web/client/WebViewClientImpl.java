@@ -1,15 +1,18 @@
 package cn.fxn.svm.fxn_core.delegates.web.client;
 
 import android.graphics.Bitmap;
+import android.webkit.CookieManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import cn.fxn.svm.fxn_core.app.ConfigKeys;
 import cn.fxn.svm.fxn_core.app.EC;
 import cn.fxn.svm.fxn_core.delegates.web.IPageLoadListener;
 import cn.fxn.svm.fxn_core.delegates.web.WebDelegate;
 import cn.fxn.svm.fxn_core.delegates.web.route.Router;
 import cn.fxn.svm.fxn_core.ui.loader.EcLoader;
 import cn.fxn.svm.fxn_core.util.log.EcLogger;
+import cn.fxn.svm.fxn_core.util.storage.EcPreference;
 
 /**
  * @author:Matthew
@@ -21,12 +24,12 @@ public class WebViewClientImpl extends WebViewClient {
     private final WebDelegate DELEGATE;
     private IPageLoadListener mIPageLoadListener = null;
 
-    public void setPageLoadListener(IPageLoadListener listener){
-        this.mIPageLoadListener=listener;
-    }
-
     public WebViewClientImpl(WebDelegate delegate) {
         DELEGATE = delegate;
+    }
+
+    public void setPageLoadListener(IPageLoadListener listener) {
+        this.mIPageLoadListener = listener;
     }
 
     @Override
@@ -39,7 +42,7 @@ public class WebViewClientImpl extends WebViewClient {
     @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
         super.onPageStarted(view, url, favicon);
-        if(mIPageLoadListener!=null){
+        if (mIPageLoadListener != null) {
             mIPageLoadListener.onLoadStart();
         }
         EcLoader.showLoading(view.getContext());
@@ -48,7 +51,8 @@ public class WebViewClientImpl extends WebViewClient {
     @Override
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
-        if(mIPageLoadListener!=null){
+        asyncCookie();
+        if (mIPageLoadListener != null) {
             mIPageLoadListener.onLoadFinish();
         }
         EC.getHandler().postDelayed(new Runnable() {
@@ -57,5 +61,23 @@ public class WebViewClientImpl extends WebViewClient {
                 EcLoader.stopLoading();
             }
         }, 1000);
+    }
+
+    //获取浏览器cookie
+    private void asyncCookie() {
+        final CookieManager cookieManager = CookieManager.getInstance();
+        /**
+         * 此cookie和api请求的cookie不同，在网页中不可见
+         */
+        final String webHost = EC.getConfiguration(ConfigKeys.WEB_HOST);
+        if (webHost != null) {
+            if (cookieManager.hasCookies()) {
+                final String cookieStr = cookieManager.getCookie(webHost);
+                if (cookieStr != null || !cookieStr.equals("")) {
+                    EcPreference.addCustomAppProfile("cookie", cookieStr);
+                }
+            }
+        }
+
     }
 }

@@ -34,6 +34,7 @@ public class ExampleApp extends Application {
                 .withIcon(new FontEcModule())
 //                .withApiHost(HOME_URL)
                 .withApiHost(WORK_URL)
+                .withWebHost("https://baidu.com/")
                 .withInterceptor(new DebugInterceptor("hello", R.raw.test))
                 .withWeChatAppId("wxfcdcecd9df8e0faa")
                 .withWeChatAppSecret("a0560f75335b06e3ebea70f29ff219bf")

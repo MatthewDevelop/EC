@@ -12,19 +12,22 @@ import android.widget.Toast;
 
 import com.joanzapata.iconify.widget.IconTextView;
 
-import java.util.ArrayList;
+import java.util.WeakHashMap;
 
 import butterknife.BindView;
 import cn.fxn.svm.fxn_core.delegates.bottom.BottomItemDelegate;
-import cn.fxn.svm.fxn_core.net.RestClient;
-import cn.fxn.svm.fxn_core.net.callback.ISuccess;
+import cn.fxn.svm.fxn_core.net.RestCreator;
+import cn.fxn.svm.fxn_core.net.rx.RxRestClient;
 import cn.fxn.svm.fxn_core.ui.recycler.BaseDecoration;
-import cn.fxn.svm.fxn_core.ui.recycler.MultipleFields;
-import cn.fxn.svm.fxn_core.ui.recycler.MultipleItemEntity;
 import cn.fxn.svm.fxn_core.ui.refresh.RefreshHandler;
 import cn.fxn.svm.fxn_ec.R;
 import cn.fxn.svm.fxn_ec.R2;
 import cn.fxn.svm.fxn_ec.main.EcBottomDelegate;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author:Matthew
@@ -63,6 +66,8 @@ public class IndexDelegate extends BottomItemDelegate {
         initRefreshLayout();
         initRecyclerView();
         mRefreshHandler.firstPage("index.json");
+//        onCallRxGet();
+        onCallRxRestClient();
     }
 
     private void initRefreshLayout() {
@@ -79,8 +84,72 @@ public class IndexDelegate extends BottomItemDelegate {
         mRecyclerView.addItemDecoration(
                 BaseDecoration.create(ContextCompat.getColor(getContext(), R.color.app_background),
                         5));
-        final EcBottomDelegate ecBottomDelegate=getParentDelegate();
+        final EcBottomDelegate ecBottomDelegate = getParentDelegate();
 
         mRecyclerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
     }
+
+    //TODO:测试方法
+    void onCallRxRestClient() {
+        final String url = "index.json";
+        RxRestClient.builder()
+                .url(url)
+                .build()
+                .get()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    //TODO:测试方法
+    void onCallRxGet() {
+        final String url = "index.json";
+        final WeakHashMap<String, Object> params = new WeakHashMap<>();
+
+        final Observable<String> observable = RestCreator.getRxRestService().get(url, params);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
 }

@@ -6,9 +6,11 @@ import java.util.concurrent.TimeUnit;
 
 import cn.fxn.svm.fxn_core.app.ConfigKeys;
 import cn.fxn.svm.fxn_core.app.EC;
+import cn.fxn.svm.fxn_core.net.rx.RxRestService;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 import retrofit2.http.Body;
 
@@ -24,16 +26,24 @@ public class RestCreator {
         return RestServiceHolder.REST_SERVICE;
     }
 
+    public static RxRestService getRxRestService() {
+        return RxRestServiceHolder.REST_SERVICE;
+    }
+
     public static WeakHashMap<String, Object> getParams() {
         return ParamsHolder.PARAMS;
     }
 
+    /**
+     * 构建全局retrofit客户端
+     */
     private static final class RetrofitHolder {
         public static final String BASE_URL = EC.getConfiguration(ConfigKeys.API_HOST.name());
         public static final Retrofit RETROFIT_CLIENT = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(OKHttpHolder.OK_HTTP_CLIENT)
                 .addConverterFactory(ScalarsConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 
@@ -55,9 +65,20 @@ public class RestCreator {
         }
     }
 
+    /**
+     * service接口
+     */
     private static final class RestServiceHolder {
         public static final RestService REST_SERVICE =
                 RetrofitHolder.RETROFIT_CLIENT.create(RestService.class);
+    }
+
+    /**
+     * service接口
+     */
+    private static final class RxRestServiceHolder {
+        public static final RxRestService REST_SERVICE =
+                RetrofitHolder.RETROFIT_CLIENT.create(RxRestService.class);
     }
 
     private static final class ParamsHolder {

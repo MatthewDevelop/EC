@@ -3,6 +3,7 @@ package cn.fxn.svm.fxn_core.delegates.web;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.view.View;
+import android.webkit.CookieManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TableRow;
@@ -17,9 +18,17 @@ public class WebViewInitializer {
 
     @SuppressLint("SetJavaScriptEnabled")
     public WebView createWebView(WebView webView) {
+        //调试模式
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
+        //cookie
+        final CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.setAcceptCookie(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cookieManager.setAcceptThirdPartyCookies(webView, true);
+        }
+        CookieManager.setAcceptFileSchemeCookies(true);
         //设置不能横向滚动
         webView.setHorizontalScrollBarEnabled(false);
         //设置不能纵向滚动

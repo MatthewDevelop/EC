@@ -61,6 +61,10 @@ public class Configurator {
         EC_CONFIGS.put(ConfigKeys.API_HOST.name(), host);
         return this;
     }
+    public final Configurator withWebHost(String host) {
+        EC_CONFIGS.put(ConfigKeys.WEB_HOST.name(), host);
+        return this;
+    }
 
     public final Configurator withIcon(IconFontDescriptor descriptor) {
         Iconify.with(descriptor);
