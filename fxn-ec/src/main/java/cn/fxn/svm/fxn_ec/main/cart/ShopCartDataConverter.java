@@ -7,7 +7,6 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.ArrayList;
 
 import cn.fxn.svm.fxn_core.ui.recycler.DataConvert;
-import cn.fxn.svm.fxn_core.ui.recycler.ItemType;
 import cn.fxn.svm.fxn_core.ui.recycler.MultipleFields;
 import cn.fxn.svm.fxn_core.ui.recycler.MultipleItemEntity;
 
@@ -41,6 +40,7 @@ public class ShopCartDataConverter extends DataConvert {
                     .setField(ShopCartFields.TITLE, title)
                     .setField(ShopCartFields.PRICE, price)
                     .setField(ShopCartFields.COUNT, count)
+                    .setField(ShopCartFields.IS_SELECTED, false)
                     .build();
             dataList.add(entity);
         }
