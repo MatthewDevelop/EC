@@ -1,11 +1,14 @@
 package cn.fxn.svm.fxn_ec.main.cart;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.ViewStubCompat;
 import android.view.View;
 import android.widget.Toast;
 
@@ -38,6 +41,8 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess {
     RecyclerView mRecyclerView = null;
     @BindView(R2.id.icon_shop_cart_select_all)
     IconTextView mIconSelectAll = null;
+    @BindView(R2.id.stub_no_item)
+    ViewStubCompat mStubCompat = null;
     private ShopCartAdapter mAdapter = null;
 
     @OnClick(R2.id.icon_shop_cart_select_all)
@@ -72,13 +77,31 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess {
             data.remove(entity);
         }
         mAdapter.notifyDataSetChanged();
-
+        checkoutItemCount();
     }
 
     @OnClick(R2.id.tv_top_shop_cart_clear)
     void onClickClear() {
         mAdapter.getData().clear();
         mAdapter.notifyDataSetChanged();
+        checkoutItemCount();
+    }
+
+    private void checkoutItemCount() {
+        final int count = mAdapter.getItemCount();
+        if (count == 0) {
+            @SuppressLint("RestrictedApi") final View stubView = mStubCompat.inflate();
+            final AppCompatTextView stubTextView=stubView.findViewById(R.id.tv_stub_to_buy);
+            stubTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //DO NOTHING
+                }
+            });
+            mRecyclerView.setVisibility(View.GONE);
+        }else {
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -111,5 +134,6 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess {
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);
+        checkoutItemCount();
     }
 }
