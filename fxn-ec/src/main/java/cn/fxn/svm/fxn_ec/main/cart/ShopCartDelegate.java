@@ -23,7 +23,6 @@ import cn.fxn.svm.fxn_core.app.EC;
 import cn.fxn.svm.fxn_core.delegates.bottom.BottomItemDelegate;
 import cn.fxn.svm.fxn_core.net.RestClient;
 import cn.fxn.svm.fxn_core.net.callback.ISuccess;
-import cn.fxn.svm.fxn_core.ui.loader.EcLoader;
 import cn.fxn.svm.fxn_core.ui.recycler.MultipleItemEntity;
 import cn.fxn.svm.fxn_core.util.log.EcLogger;
 import cn.fxn.svm.fxn_ec.R;
@@ -35,7 +34,7 @@ import cn.fxn.svm.fxn_ec.R2;
  * @email:guocheng0816@163.com
  * @func:
  */
-public class ShopCartDelegate extends BottomItemDelegate implements ISuccess {
+public class ShopCartDelegate extends BottomItemDelegate implements ISuccess, ICartSelectedTotalPriceListener {
 
     @BindView(R2.id.rv_shop_cart)
     RecyclerView mRecyclerView = null;
@@ -43,6 +42,8 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess {
     IconTextView mIconSelectAll = null;
     @BindView(R2.id.stub_no_item)
     ViewStubCompat mStubCompat = null;
+    @BindView(R2.id.tv_shop_cart_total)
+    AppCompatTextView mTotalPrice = null;
     private ShopCartAdapter mAdapter = null;
 
     @OnClick(R2.id.icon_shop_cart_select_all)
@@ -72,26 +73,23 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess {
                 deleteEntities.add(entity);
             }
         }
+        if (deleteEntities.size() == 0) {
+            return;
+        }
 
         for (MultipleItemEntity entity : deleteEntities) {
             data.remove(entity);
         }
         mAdapter.notifyDataSetChanged();
         checkoutItemCount();
-    }
-
-    @OnClick(R2.id.tv_top_shop_cart_clear)
-    void onClickClear() {
-        mAdapter.getData().clear();
-        mAdapter.notifyDataSetChanged();
-        checkoutItemCount();
+        mAdapter.checkSelectedItemTotalPrice();
     }
 
     private void checkoutItemCount() {
         final int count = mAdapter.getItemCount();
         if (count == 0) {
             @SuppressLint("RestrictedApi") final View stubView = mStubCompat.inflate();
-            final AppCompatTextView stubTextView=stubView.findViewById(R.id.tv_stub_to_buy);
+            final AppCompatTextView stubTextView = stubView.findViewById(R.id.tv_stub_to_buy);
             stubTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -99,8 +97,20 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess {
                 }
             });
             mRecyclerView.setVisibility(View.GONE);
-        }else {
+        } else {
             mRecyclerView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @OnClick(R2.id.tv_top_shop_cart_clear)
+    void onClickClear() {
+        if (mAdapter.getData().size() == 0) {
+            Toast.makeText(getContext(), "空空如也~", Toast.LENGTH_SHORT).show();
+        } else {
+            mAdapter.getData().clear();
+            mAdapter.notifyDataSetChanged();
+            checkoutItemCount();
+            mAdapter.checkSelectedItemTotalPrice();
         }
     }
 
@@ -130,10 +140,17 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess {
         final ArrayList<MultipleItemEntity> data =
                 new ShopCartDataConverter().setJsonData(response).convert();
         mAdapter = new ShopCartAdapter(data);
+        mAdapter.setCartItemListener(this);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);
         checkoutItemCount();
+        mAdapter.checkSelectedItemTotalPrice();
+    }
+
+    @Override
+    public void updatePrice(double selectedTotalPrice) {
+        mTotalPrice.setText(String.valueOf(selectedTotalPrice));
     }
 }

@@ -12,9 +12,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.joanzapata.iconify.widget.IconTextView;
 
 import java.util.List;
-import java.util.Observable;
 
 import cn.fxn.svm.fxn_core.app.EC;
+import cn.fxn.svm.fxn_core.net.RestClient;
+import cn.fxn.svm.fxn_core.net.callback.ISuccess;
 import cn.fxn.svm.fxn_core.ui.recycler.MultipleFields;
 import cn.fxn.svm.fxn_core.ui.recycler.MultipleItemEntity;
 import cn.fxn.svm.fxn_core.ui.recycler.MultipleRecyclerAdapter;
@@ -29,13 +30,12 @@ import cn.fxn.svm.fxn_ec.R;
  */
 public class ShopCartAdapter extends MultipleRecyclerAdapter {
 
-    private boolean isSelectedAll=false;
-
-
     private static final RequestOptions OPTIONS = new RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .centerCrop()
             .dontAnimate();
+    private ICartSelectedTotalPriceListener mCartItemListener = null;
+    private List<MultipleItemEntity> mData;
 
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
@@ -45,11 +45,19 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
      */
     protected ShopCartAdapter(List<MultipleItemEntity> data) {
         super(data);
+        mData = data;
         addItemType(ShopCartItemType.SHOP_CART_ITEM_TYPE, R.layout.item_shop_cart);
     }
 
+    public void setCartItemListener(ICartSelectedTotalPriceListener cartItemListener) {
+        mCartItemListener = cartItemListener;
+    }
+
     public void setIsSelectedAll(boolean isSelectedAll) {
-        this.isSelectedAll = isSelectedAll;
+        for (MultipleItemEntity entity : mData) {
+            entity.setField(ShopCartFields.IS_SELECTED, isSelectedAll);
+        }
+        checkSelectedItemTotalPrice();
     }
 
     @Override
@@ -84,7 +92,6 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
                         .into(thumbImg);
 
                 //选中状态按钮渲染之前改变全选或全否的状态
-                entity.setField(ShopCartFields.IS_SELECTED, isSelectedAll);
                 final boolean isSelected = entity.getField(ShopCartFields.IS_SELECTED);
 
                 //根据数据选中状态显示显示UI
@@ -97,20 +104,87 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
                 iconSelected.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final boolean currentSelected=entity.getField(ShopCartFields.IS_SELECTED);
-                        if (currentSelected){
+                        final boolean currentSelected = entity.getField(ShopCartFields.IS_SELECTED);
+                        if (currentSelected) {
                             iconSelected.setTextColor(Color.GRAY);
                             entity.setField(ShopCartFields.IS_SELECTED, false);
-                        }else {
+                        } else {
                             iconSelected.setTextColor(ContextCompat.getColor(EC.getApplication(), R.color.app_main));
                             entity.setField(ShopCartFields.IS_SELECTED, true);
                         }
+                        checkSelectedItemTotalPrice();
+                    }
+                });
+
+                iconMinus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final int currentCount = entity.getField(ShopCartFields.COUNT);
+                        if (Integer.parseInt(tvCount.getText().toString()) > 1) {
+                            RestClient.builder()
+                                    .url("user_profile.json")
+                                    .loader(mContext)
+                                    .params("count", currentCount)
+                                    .success(new ISuccess() {
+                                        @Override
+                                        public void onSuccess(String response) {
+                                            int countNum = Integer.parseInt(tvCount.getText().toString());
+                                            countNum--;
+                                            tvCount.setText(String.valueOf(countNum));
+                                            entity.setField(ShopCartFields.COUNT, countNum);
+                                            checkSelectedItemTotalPrice();
+                                        }
+                                    })
+                                    .build()
+                                    .post();
+                        }
+                    }
+                });
+
+                iconPlus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final int currentCount = entity.getField(ShopCartFields.COUNT);
+                        RestClient.builder()
+                                .url("user_profile.json")
+                                .loader(mContext)
+                                .params("count", currentCount)
+                                .success(new ISuccess() {
+                                    @Override
+                                    public void onSuccess(String response) {
+                                        int countNum = Integer.parseInt(tvCount.getText().toString());
+                                        countNum++;
+                                        tvCount.setText(String.valueOf(countNum));
+                                        entity.setField(ShopCartFields.COUNT, countNum);
+                                        checkSelectedItemTotalPrice();
+                                    }
+                                })
+                                .build()
+                                .post();
                     }
                 });
 
                 break;
             default:
                 break;
+        }
+    }
+
+
+
+    public void checkSelectedItemTotalPrice() {
+        double selectedTotalPrice = 0;
+        for (MultipleItemEntity entity : mData) {
+            final boolean isSelected = entity.getField(ShopCartFields.IS_SELECTED);
+            if (isSelected) {
+                final double price = entity.getField(ShopCartFields.PRICE);
+                final int count = entity.getField(ShopCartFields.COUNT);
+                final double totalPrice = price * count;
+                selectedTotalPrice +=totalPrice;
+            }
+        }
+        if(mCartItemListener!=null){
+            mCartItemListener.updatePrice(selectedTotalPrice);
         }
     }
 }
