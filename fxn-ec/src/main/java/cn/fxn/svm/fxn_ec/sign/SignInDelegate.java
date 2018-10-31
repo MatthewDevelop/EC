@@ -113,7 +113,7 @@ public class SignInDelegate extends EcDelegate {
 
     @OnClick(R2.id.tv_link_sign_up)
     void onClickLinkSignUp() {
-        startWithPop(new SignUpDelegate());
+        getSupportDelegate().startWithPop(new SignUpDelegate());
     }
 
     @Override

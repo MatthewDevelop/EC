@@ -1,1 +1,1 @@
-include ':app', ':fxn-annotations', ':fxn-compiler', ':fxn-core', ':fxn-ec'
+include ':app', ':fxn-annotations', ':fxn-compiler', ':fxn-core', ':fxn-ec', ':fxn_ui'

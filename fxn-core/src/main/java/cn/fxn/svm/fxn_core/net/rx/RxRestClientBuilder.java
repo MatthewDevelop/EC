@@ -5,12 +5,7 @@ import android.content.Context;
 import java.io.File;
 import java.util.WeakHashMap;
 
-import cn.fxn.svm.fxn_core.net.RestClient;
 import cn.fxn.svm.fxn_core.net.RestCreator;
-import cn.fxn.svm.fxn_core.net.callback.IError;
-import cn.fxn.svm.fxn_core.net.callback.IFailure;
-import cn.fxn.svm.fxn_core.net.callback.IRequest;
-import cn.fxn.svm.fxn_core.net.callback.ISuccess;
 import cn.fxn.svm.fxn_core.ui.loader.LoaderStyle;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;

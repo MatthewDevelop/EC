@@ -14,8 +14,8 @@ import butterknife.OnClick;
 import cn.fxn.svm.fxn_core.app.AccountManager;
 import cn.fxn.svm.fxn_core.app.IUserChecker;
 import cn.fxn.svm.fxn_core.delegates.EcDelegate;
-import cn.fxn.svm.fxn_core.ui.launcher.ILauncherListener;
-import cn.fxn.svm.fxn_core.ui.launcher.OnLauncherFinishTag;
+import cn.fxn.svm.fxn_ui.ui.launcher.ILauncherListener;
+import cn.fxn.svm.fxn_ui.ui.launcher.OnLauncherFinishTag;
 import cn.fxn.svm.fxn_core.util.storage.EcPreference;
 import cn.fxn.svm.fxn_core.util.timer.BaseTimerTask;
 import cn.fxn.svm.fxn_core.util.timer.ITimerListener;
@@ -63,7 +63,7 @@ public class LauncherDelegate extends EcDelegate implements ITimerListener {
 
     private void checkIsShowScrollLauncher(){
         if(!EcPreference.getAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCH_APP.name())){
-            startWithPop(new LauncherScrollDelegate());
+            getSupportDelegate().startWithPop(new LauncherScrollDelegate());
         }else {
             //检查用户登陆信息
             AccountManager.checkAccount(new IUserChecker() {

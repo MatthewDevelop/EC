@@ -16,10 +16,10 @@ import java.util.List;
 import cn.fxn.svm.fxn_core.app.EC;
 import cn.fxn.svm.fxn_core.net.RestClient;
 import cn.fxn.svm.fxn_core.net.callback.ISuccess;
-import cn.fxn.svm.fxn_core.ui.recycler.MultipleFields;
-import cn.fxn.svm.fxn_core.ui.recycler.MultipleItemEntity;
-import cn.fxn.svm.fxn_core.ui.recycler.MultipleRecyclerAdapter;
-import cn.fxn.svm.fxn_core.ui.recycler.MultipleViewHolder;
+import cn.fxn.svm.fxn_ui.ui.recycler.MultipleFields;
+import cn.fxn.svm.fxn_ui.ui.recycler.MultipleItemEntity;
+import cn.fxn.svm.fxn_ui.ui.recycler.MultipleRecyclerAdapter;
+import cn.fxn.svm.fxn_ui.ui.recycler.MultipleViewHolder;
 import cn.fxn.svm.fxn_ec.R;
 
 /**

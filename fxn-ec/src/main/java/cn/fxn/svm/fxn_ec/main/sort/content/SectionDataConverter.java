@@ -7,8 +7,8 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.fxn.svm.fxn_core.ui.recycler.DataConvert;
-import cn.fxn.svm.fxn_core.ui.recycler.MultipleItemEntity;
+import cn.fxn.svm.fxn_ui.ui.recycler.DataConvert;
+import cn.fxn.svm.fxn_ui.ui.recycler.MultipleItemEntity;
 import cn.fxn.svm.fxn_core.util.log.EcLogger;
 
 /**

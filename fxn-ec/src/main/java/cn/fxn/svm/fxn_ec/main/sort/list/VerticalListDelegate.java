@@ -12,7 +12,7 @@ import butterknife.BindView;
 import cn.fxn.svm.fxn_core.delegates.EcDelegate;
 import cn.fxn.svm.fxn_core.net.RestClient;
 import cn.fxn.svm.fxn_core.net.callback.ISuccess;
-import cn.fxn.svm.fxn_core.ui.recycler.MultipleItemEntity;
+import cn.fxn.svm.fxn_ui.ui.recycler.MultipleItemEntity;
 import cn.fxn.svm.fxn_core.util.log.EcLogger;
 import cn.fxn.svm.fxn_ec.R;
 import cn.fxn.svm.fxn_ec.R2;

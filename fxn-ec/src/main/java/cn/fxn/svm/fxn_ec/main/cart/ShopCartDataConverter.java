@@ -6,9 +6,9 @@ import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
 
-import cn.fxn.svm.fxn_core.ui.recycler.DataConvert;
-import cn.fxn.svm.fxn_core.ui.recycler.MultipleFields;
-import cn.fxn.svm.fxn_core.ui.recycler.MultipleItemEntity;
+import cn.fxn.svm.fxn_ui.ui.recycler.DataConvert;
+import cn.fxn.svm.fxn_ui.ui.recycler.MultipleFields;
+import cn.fxn.svm.fxn_ui.ui.recycler.MultipleItemEntity;
 
 /**
  * @author:Matthew

@@ -7,14 +7,15 @@ import android.view.View;
 import java.util.List;
 
 import cn.fxn.svm.fxn_core.delegates.EcDelegate;
-import cn.fxn.svm.fxn_core.ui.recycler.ItemType;
-import cn.fxn.svm.fxn_core.ui.recycler.MultipleFields;
-import cn.fxn.svm.fxn_core.ui.recycler.MultipleItemEntity;
-import cn.fxn.svm.fxn_core.ui.recycler.MultipleRecyclerAdapter;
-import cn.fxn.svm.fxn_core.ui.recycler.MultipleViewHolder;
+import cn.fxn.svm.fxn_ui.ui.recycler.ItemType;
+import cn.fxn.svm.fxn_ui.ui.recycler.MultipleFields;
+import cn.fxn.svm.fxn_ui.ui.recycler.MultipleItemEntity;
+import cn.fxn.svm.fxn_ui.ui.recycler.MultipleRecyclerAdapter;
+import cn.fxn.svm.fxn_ui.ui.recycler.MultipleViewHolder;
 import cn.fxn.svm.fxn_ec.R;
 import cn.fxn.svm.fxn_ec.main.sort.SortDelegate;
 import cn.fxn.svm.fxn_ec.main.sort.content.ContentDelegate;
+import me.yokeyword.fragmentation.SupportHelper;
 
 /**
  * @author:Matthew
@@ -93,9 +94,10 @@ public class SortRecyclerAdapter extends MultipleRecyclerAdapter {
     }
 
     private void switchContent(ContentDelegate delegate){
-        final EcDelegate contentDelegate=DELEGATE.findChildFragment(ContentDelegate.class);
+        final EcDelegate contentDelegate=
+                SupportHelper.findFragment(DELEGATE.getChildFragmentManager(), ContentDelegate.class);
         if(contentDelegate!=null){
-            contentDelegate.replaceFragment(delegate, false);
+            contentDelegate.getSupportDelegate().replaceFragment(delegate, false);
         }
     }
 }

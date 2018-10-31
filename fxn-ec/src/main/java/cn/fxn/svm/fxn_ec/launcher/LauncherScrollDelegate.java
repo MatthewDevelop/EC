@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import cn.fxn.svm.fxn_core.app.AccountManager;
 import cn.fxn.svm.fxn_core.app.IUserChecker;
 import cn.fxn.svm.fxn_core.delegates.EcDelegate;
-import cn.fxn.svm.fxn_core.ui.launcher.ILauncherListener;
-import cn.fxn.svm.fxn_core.ui.launcher.LauncherHolderCreator;
-import cn.fxn.svm.fxn_core.ui.launcher.OnLauncherFinishTag;
+import cn.fxn.svm.fxn_ui.ui.launcher.ILauncherListener;
+import cn.fxn.svm.fxn_ui.ui.launcher.LauncherHolderCreator;
+import cn.fxn.svm.fxn_ui.ui.launcher.OnLauncherFinishTag;
 import cn.fxn.svm.fxn_core.util.storage.EcPreference;
 import cn.fxn.svm.fxn_ec.R;
 

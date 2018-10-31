@@ -16,6 +16,7 @@ import com.joanzapata.iconify.widget.IconTextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.WeakHashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -23,7 +24,7 @@ import cn.fxn.svm.fxn_core.app.EC;
 import cn.fxn.svm.fxn_core.delegates.bottom.BottomItemDelegate;
 import cn.fxn.svm.fxn_core.net.RestClient;
 import cn.fxn.svm.fxn_core.net.callback.ISuccess;
-import cn.fxn.svm.fxn_core.ui.recycler.MultipleItemEntity;
+import cn.fxn.svm.fxn_ui.ui.recycler.MultipleItemEntity;
 import cn.fxn.svm.fxn_core.util.log.EcLogger;
 import cn.fxn.svm.fxn_ec.R;
 import cn.fxn.svm.fxn_ec.R2;
@@ -114,6 +115,7 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess, IC
         }
     }
 
+
     @Override
     public Object setLayout() {
         return R.layout.delegate_shopping_cart;
@@ -135,6 +137,9 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess, IC
     }
 
     @Override
+    public void updatePrice(double selectedTotalPrice) {
+        mTotalPrice.setText(String.valueOf(selectedTotalPrice));
+    }    @Override
     public void onSuccess(String response) {
         EcLogger.d(response);
         final ArrayList<MultipleItemEntity> data =
@@ -149,8 +154,5 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess, IC
         mAdapter.checkSelectedItemTotalPrice();
     }
 
-    @Override
-    public void updatePrice(double selectedTotalPrice) {
-        mTotalPrice.setText(String.valueOf(selectedTotalPrice));
-    }
+
 }

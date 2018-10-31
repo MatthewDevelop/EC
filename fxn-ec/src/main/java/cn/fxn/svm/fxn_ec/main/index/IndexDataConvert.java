@@ -7,11 +7,11 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.util.ArrayList;
 
-import cn.fxn.svm.fxn_core.ui.recycler.DataConvert;
-import cn.fxn.svm.fxn_core.ui.recycler.ItemType;
-import cn.fxn.svm.fxn_core.ui.recycler.MultipleEntityBuilder;
-import cn.fxn.svm.fxn_core.ui.recycler.MultipleFields;
-import cn.fxn.svm.fxn_core.ui.recycler.MultipleItemEntity;
+import cn.fxn.svm.fxn_ui.ui.recycler.DataConvert;
+import cn.fxn.svm.fxn_ui.ui.recycler.ItemType;
+import cn.fxn.svm.fxn_ui.ui.recycler.MultipleEntityBuilder;
+import cn.fxn.svm.fxn_ui.ui.recycler.MultipleFields;
+import cn.fxn.svm.fxn_ui.ui.recycler.MultipleItemEntity;
 
 /**
  * @author:Matthew
