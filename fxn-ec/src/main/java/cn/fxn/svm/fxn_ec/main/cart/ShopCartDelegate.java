@@ -12,6 +12,7 @@ import android.support.v7.widget.ViewStubCompat;
 import android.view.View;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.joanzapata.iconify.widget.IconTextView;
 
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ import cn.fxn.svm.fxn_core.app.EC;
 import cn.fxn.svm.fxn_core.delegates.bottom.BottomItemDelegate;
 import cn.fxn.svm.fxn_core.net.RestClient;
 import cn.fxn.svm.fxn_core.net.callback.ISuccess;
+import cn.fxn.svm.fxn_ec.pay.FastPay;
+import cn.fxn.svm.fxn_ec.pay.IAliPayResultListener;
 import cn.fxn.svm.fxn_ui.ui.recycler.MultipleItemEntity;
 import cn.fxn.svm.fxn_core.util.log.EcLogger;
 import cn.fxn.svm.fxn_ec.R;
@@ -35,7 +38,7 @@ import cn.fxn.svm.fxn_ec.R2;
  * @email:guocheng0816@163.com
  * @func:
  */
-public class ShopCartDelegate extends BottomItemDelegate implements ISuccess, ICartSelectedTotalPriceListener {
+public class ShopCartDelegate extends BottomItemDelegate implements ISuccess, ICartSelectedTotalPriceListener, IAliPayResultListener {
 
     @BindView(R2.id.rv_shop_cart)
     RecyclerView mRecyclerView = null;
@@ -115,6 +118,35 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess, IC
         }
     }
 
+    @OnClick(R2.id.tv_shop_cart_pay)
+    void onClickPay() {
+        FastPay.create(this).beginPayDailog();
+    }
+
+    /**
+     * 创建订单
+     */
+    private void createOrder() {
+        final String orderUrl = "//下单的api";
+        final WeakHashMap<String, Object> orderParams = new WeakHashMap<>();
+        //添加参数
+        RestClient.builder()
+                .url(orderUrl)
+                .params(orderParams)
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+                        final int orderId=JSON.parseObject(response).getInteger("result");
+                        //具体支付
+                        FastPay.create(ShopCartDelegate.this)
+                                .setPayResultListener(ShopCartDelegate.this)
+                                .setOrderId(orderId)
+                                .beginPayDailog();
+                    }
+                })
+                .build()
+                .post();
+    }
 
     @Override
     public Object setLayout() {
@@ -155,4 +187,28 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess, IC
     }
 
 
+    @Override
+    public void onPaySuccess() {
+
+    }
+
+    @Override
+    public void onPaying() {
+
+    }
+
+    @Override
+    public void onPayFailed() {
+
+    }
+
+    @Override
+    public void onPayCancel() {
+
+    }
+
+    @Override
+    public void onPayConnectError() {
+
+    }
 }
