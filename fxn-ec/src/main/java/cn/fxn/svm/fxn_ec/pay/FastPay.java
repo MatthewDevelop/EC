@@ -89,11 +89,12 @@ public class FastPay implements View.OnClickListener {
     public void onClick(View v) {
         final int id = v.getId();
         if (id == R.id.btn_dialog_pay_cancel) {
-            aliPay(mOrderID);
             mDialog.cancel();
         } else if (id == R.id.icon_dialog_pay_ali_pay) {
+            aliPay(mOrderID);
             mDialog.cancel();
         } else if (id == R.id.icon_dialog_pay_we_chat) {
+            weChatPay(mOrderID);
             mDialog.cancel();
         }
     }
@@ -107,10 +108,10 @@ public class FastPay implements View.OnClickListener {
                     @Override
                     public void onSuccess(String response) {
                         //此处是和后台约定的
-                        final String paySign=JSON.parseObject(response).getString("result");
+//                        final String paySign=JSON.parseObject(response).getString("result");
                         //调用支付宝客户端必须是异步
-                        final PayAsyncTask payAsyncTask=new PayAsyncTask(mActivity, mAliPayResultListener);
-                        payAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,paySign);
+//                        final PayAsyncTask payAsyncTask=new PayAsyncTask(mActivity, mAliPayResultListener);
+//                        payAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,paySign);
                     }
                 })
                 .build()
@@ -128,24 +129,24 @@ public class FastPay implements View.OnClickListener {
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        final JSONObject result=JSON.parseObject(response).getJSONObject("result");
-                        final String prepayId = result.getString("prepayid");
-                        final String partnerId = result.getString("partnerid");
-                        final String packageValue = result.getString("package");
-                        final String timestamp = result.getString("timestamp");
-                        final String nonceStr = result.getString("noncestr");
-                        final String paySign = result.getString("sign");
-
-                        final PayReq payReq=new PayReq();
-                        payReq.appId=appId;
-                        payReq.prepayId=prepayId;
-                        payReq.packageValue=packageValue;
-                        payReq.prepayId=partnerId;
-                        payReq.timeStamp=timestamp;
-                        payReq.nonceStr=nonceStr;
-                        payReq.sign=paySign;
-
-                        iwxapi.sendReq(payReq);
+//                        final JSONObject result=JSON.parseObject(response).getJSONObject("result");
+//                        final String prepayId = result.getString("prepayid");
+//                        final String partnerId = result.getString("partnerid");
+//                        final String packageValue = result.getString("package");
+//                        final String timestamp = result.getString("timestamp");
+//                        final String nonceStr = result.getString("noncestr");
+//                        final String paySign = result.getString("sign");
+//
+//                        final PayReq payReq=new PayReq();
+//                        payReq.appId=appId;
+//                        payReq.prepayId=prepayId;
+//                        payReq.packageValue=packageValue;
+//                        payReq.prepayId=partnerId;
+//                        payReq.timeStamp=timestamp;
+//                        payReq.nonceStr=nonceStr;
+//                        payReq.sign=paySign;
+//
+//                        iwxapi.sendReq(payReq);
                     }
                 })
                 .build()

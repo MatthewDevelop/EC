@@ -30,4 +30,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc1'
     api project(':fxn_ui')
+    //圆形图片
+    api 'de.hdodenhof:circleimageview:2.2.0'
 }
