@@ -10,12 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import cn.fxn.svm.fxn_core.delegates.bottom.BottomItemDelegate;
 import cn.fxn.svm.fxn_ec.R;
 import cn.fxn.svm.fxn_ec.R2;
 import cn.fxn.svm.fxn_ec.main.user.list.ListAdapter;
 import cn.fxn.svm.fxn_ec.main.user.list.ListBean;
 import cn.fxn.svm.fxn_ec.main.user.list.ListItemType;
+import cn.fxn.svm.fxn_ec.main.user.order.OrderListDelegate;
 
 /**
  * @author:Matthew
@@ -25,9 +27,51 @@ import cn.fxn.svm.fxn_ec.main.user.list.ListItemType;
  */
 public class UserDelegate extends BottomItemDelegate {
 
+    public static final String ORDER_TYPE = "ORDER_TYPE";
+    public static final String ALL="ALL";
+    public static final String PAY="PAY";
+    public static final String RECEIVE="RECEIVE";
+    public static final String EVALUATE="EVALUATE";
+    public static final String AFTER_SALE="AFTER_SALE";
     @BindView(R2.id.rv_user_setting)
-    RecyclerView mRecyclerView=null;
+    RecyclerView mRecyclerView = null;
+    private Bundle args = null;
 
+    @OnClick(R2.id.tv_all_order)
+    void onClickAllOrder() {
+        args.putString(ORDER_TYPE, ALL);
+        startOrderListByType();
+    }
+
+    private void startOrderListByType() {
+        final OrderListDelegate orderListDelegate = new OrderListDelegate();
+        orderListDelegate.setArguments(args);
+        getParentDelegate().getSupportDelegate().start(orderListDelegate);
+    }
+
+    @OnClick(R2.id.ll_pay)
+    void onClickLLPay() {
+        args.putString(ORDER_TYPE, PAY);
+        startOrderListByType();
+    }
+
+    @OnClick(R2.id.ll_receive)
+    void onClickLLReceive() {
+        args.putString(ORDER_TYPE, RECEIVE);
+        startOrderListByType();
+    }
+
+    @OnClick(R2.id.ll_evaluate)
+    void onClickLLEvaluate() {
+        args.putString(ORDER_TYPE, EVALUATE);
+        startOrderListByType();
+    }
+
+    @OnClick(R2.id.ll_after_sale)
+    void onClickLLAfterSale() {
+        args.putString(ORDER_TYPE, AFTER_SALE);
+        startOrderListByType();
+    }
 
     @Override
     public Object setLayout() {
@@ -36,24 +80,30 @@ public class UserDelegate extends BottomItemDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-        final ListBean push=new ListBean.Builder()
+        final ListBean push = new ListBean.Builder()
                 .setItemType(ListItemType.ITEM_NORMAL)
                 .setId(1)
                 .setText("收货地址")
                 .build();
-        final ListBean system=new ListBean.Builder()
+        final ListBean system = new ListBean.Builder()
                 .setItemType(ListItemType.ITEM_NORMAL)
                 .setId(2)
                 .setText("系统设置")
                 .build();
-        final List<ListBean> data=new ArrayList<>();
+        final List<ListBean> data = new ArrayList<>();
         data.add(push);
         data.add(system);
 
         //设置RecyclerView
-        final LinearLayoutManager manager=new LinearLayoutManager(getContext());
+        final LinearLayoutManager manager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(manager);
-        final ListAdapter adapter=new ListAdapter(data);
+        final ListAdapter adapter = new ListAdapter(data);
         mRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        args = new Bundle();
     }
 }
