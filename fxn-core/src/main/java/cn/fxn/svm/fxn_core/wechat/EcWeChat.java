@@ -17,8 +17,8 @@ import cn.fxn.svm.fxn_core.wechat.callbacks.IWeChatSignInCallback;
  * @func:
  */
 public class EcWeChat {
-    public static final String APP_ID = EC.getConfiguration(ConfigKeys.WE_CHAT_APP_ID);
-    public static final String APP_SECRET = EC.getConfiguration(ConfigKeys.WE_CHAT_APP_SECRET);
+    static final String APP_ID = EC.getConfiguration(ConfigKeys.WE_CHAT_APP_ID);
+    static final String APP_SECRET = EC.getConfiguration(ConfigKeys.WE_CHAT_APP_SECRET);
     private final IWXAPI WXAPI;
     private IWeChatSignInCallback mSignInCallback=null;
 
