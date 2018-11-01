@@ -12,38 +12,19 @@ import cn.fxn.svm.fxn_core.delegates.EcDelegate;
  * @email:guocheng0816@163.com
  * @func:
  */
-public abstract class BottomItemDelegate extends EcDelegate implements View.OnKeyListener {
+public abstract class BottomItemDelegate extends EcDelegate {
 
-    private long mExitTime=0;
-    public static final int EXIT_TIME=2000;
-
-    @Override
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
-        if(keyCode==KeyEvent.KEYCODE_BACK&&event.getAction()==KeyEvent.ACTION_DOWN){
-            if(System.currentTimeMillis()-mExitTime>EXIT_TIME){
-                Toast.makeText(getContext(), "再次点击退出应用", Toast.LENGTH_SHORT).show();
-                mExitTime=System.currentTimeMillis();
-            }else {
-                _mActivity.finish();
-                if(mExitTime!=0){
-                    mExitTime=0;
-                }
-            }
-            return true;
-        }
-        //事件已经被消化掉
-        return false;
-    }
+    private long TOUCH_TIME=0;
+    public static final int WAIT_TIME=2000;
 
     @Override
-    public void onResume() {
-        super.onResume();
-        //不进行处理点击事件不会生效
-        final View rootView=getView();
-        if(rootView!=null){
-            rootView.setFocusableInTouchMode(true);
-            rootView.requestFocus();
-            rootView.setOnKeyListener(this);
+    public boolean onBackPressedSupport() {
+        if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
+            _mActivity.finish();
+        } else {
+            TOUCH_TIME = System.currentTimeMillis();
+            Toast.makeText(_mActivity, "再次点击退出应用", Toast.LENGTH_SHORT).show();
         }
+        return true;
     }
 }
