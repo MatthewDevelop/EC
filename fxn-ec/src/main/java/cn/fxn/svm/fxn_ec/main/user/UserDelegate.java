@@ -18,6 +18,7 @@ import cn.fxn.svm.fxn_ec.main.user.list.ListAdapter;
 import cn.fxn.svm.fxn_ec.main.user.list.ListBean;
 import cn.fxn.svm.fxn_ec.main.user.list.ListItemType;
 import cn.fxn.svm.fxn_ec.main.user.order.OrderListDelegate;
+import cn.fxn.svm.fxn_ec.main.user.profile.UserProfileDelegate;
 
 /**
  * @author:Matthew
@@ -28,11 +29,11 @@ import cn.fxn.svm.fxn_ec.main.user.order.OrderListDelegate;
 public class UserDelegate extends BottomItemDelegate {
 
     public static final String ORDER_TYPE = "ORDER_TYPE";
-    public static final String ALL="ALL";
-    public static final String PAY="PAY";
-    public static final String RECEIVE="RECEIVE";
-    public static final String EVALUATE="EVALUATE";
-    public static final String AFTER_SALE="AFTER_SALE";
+    public static final String ALL = "ALL";
+    public static final String PAY = "PAY";
+    public static final String RECEIVE = "RECEIVE";
+    public static final String EVALUATE = "EVALUATE";
+    public static final String AFTER_SALE = "AFTER_SALE";
     @BindView(R2.id.rv_user_setting)
     RecyclerView mRecyclerView = null;
     private Bundle args = null;
@@ -47,6 +48,11 @@ public class UserDelegate extends BottomItemDelegate {
         final OrderListDelegate orderListDelegate = new OrderListDelegate();
         orderListDelegate.setArguments(args);
         getParentDelegate().getSupportDelegate().start(orderListDelegate);
+    }
+
+    @OnClick(R2.id.img_user_avatar)
+    void onClickAvatar() {
+        getParentDelegate().getSupportDelegate().start(new UserProfileDelegate());
     }
 
     @OnClick(R2.id.ll_pay)

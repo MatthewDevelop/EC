@@ -1,5 +1,10 @@
 package cn.fxn.svm.fxn_ec.main.user.list;
 
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -14,6 +19,12 @@ import cn.fxn.svm.fxn_ec.R;
  * @func:
  */
 public class ListAdapter extends BaseMultiItemQuickAdapter<ListBean, BaseViewHolder> {
+
+    private static final RequestOptions OPTIONS = new RequestOptions()
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .centerCrop()
+            .dontAnimate();
+
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
      * some initialization data.
@@ -35,6 +46,10 @@ public class ListAdapter extends BaseMultiItemQuickAdapter<ListBean, BaseViewHol
                 helper.setText(R.id.tv_arrow_value, item.getValue());
                 break;
             case ListItemType.ITEM_AVATAR:
+                Glide.with(mContext)
+                        .load(item.getImageUrl())
+                        .apply(OPTIONS)
+                        .into((ImageView) helper.getView(R.id.img_arrow_avatar));
                 break;
             case ListItemType.ITEM_SWITCH:
                 break;
