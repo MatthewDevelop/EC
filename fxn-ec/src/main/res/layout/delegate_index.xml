@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@android:color/transparent"
-        app:layout_behavior="cn.fxn.svm.fxn_ec.main.index.TranslucentBehavior">
+        app:layout_behavior="cn.fxn.svm.ec.main.index.TranslucentBehavior">
 
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"

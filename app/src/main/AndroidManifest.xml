@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.fxn.svm.ec">
+    package="cn.fxn.svm.app">
 
     <application
-        android:name=".ExampleApp"
+        android:name="cn.fxn.svm.app.ExampleApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ExampleActivity">
+        <activity android:name="cn.fxn.svm.app.ExampleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="cn.fxn.svm.app.wxapi.WXEntryActivity"
             android:exported="true"
             android:label="微信回调"
             android:launchMode="singleTop"
@@ -31,7 +31,7 @@
         </activity>
 
         <activity
-            android:name=".wxapi.WXPayEntryActivity"
+            android:name="cn.fxn.svm.app.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:label="微信支付回调"
             android:launchMode="singleTop"

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.fxn.svm.fxn_core">
+    package="cn.fxn.svm.core">
     <!--微信所需权限-->
     <uses-permission android:name="android.permission.INTERNET" />
 

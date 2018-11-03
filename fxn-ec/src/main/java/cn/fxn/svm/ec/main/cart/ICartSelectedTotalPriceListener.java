@@ -1,0 +1,11 @@
+package cn.fxn.svm.ec.main.cart;
+
+/**
+ * @author:Matthew
+ * @date:2018/10/31
+ * @email:guocheng0816@163.com
+ * @func:
+ */
+public interface ICartSelectedTotalPriceListener {
+    void updatePrice(double totalPrice);
+}
