@@ -14,6 +14,7 @@ import cn.fxn.svm.ec.launcher.LauncherDelegate;
 import cn.fxn.svm.ec.main.EcBottomDelegate;
 import cn.fxn.svm.ec.sign.ISignListener;
 import cn.fxn.svm.ec.sign.SignInDelegate;
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * @author:Matthew
@@ -63,5 +64,17 @@ public class ExampleActivity extends ProxyActivity implements ISignListener, ILa
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JPushInterface.onPause(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(this);
     }
 }

@@ -37,6 +37,15 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Translucent" />
+
+        <!-- User defined. 用户自定义的广播接收器-->
+        <receiver android:name=".push.PushReceiver">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+                <category android:name="cn.fxn.svm.app" />
+            </intent-filter>
+        </receiver>
     </application>
+
 
 </manifest>

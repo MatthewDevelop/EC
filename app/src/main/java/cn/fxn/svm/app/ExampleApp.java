@@ -14,6 +14,7 @@ import cn.fxn.svm.app.event.TestEvent;
 import cn.fxn.svm.core.net.interceptors.DebugInterceptor;
 import cn.fxn.svm.ec.database.DatabaseManager;
 import cn.fxn.svm.ec.icon.FontEcModule;
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * @author:Matthew
@@ -46,6 +47,8 @@ public class ExampleApp extends MultiDexApplication {
         Logger.addLogAdapter(new AndroidLogAdapter());
         initStetho();
         DatabaseManager.getInstance().init(this);
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 
     private void initStetho() {
