@@ -15,7 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.fxn.svm.fxn_ui.R;
+import cn.fxn.svm.ui.R;
 import cn.fxn.svm.ui.banner.BannerCreator;
 import cn.fxn.svm.core.util.log.EcLogger;
 

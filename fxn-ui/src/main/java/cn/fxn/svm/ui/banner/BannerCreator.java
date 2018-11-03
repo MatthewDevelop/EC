@@ -5,7 +5,7 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 
 import java.util.ArrayList;
 
-import cn.fxn.svm.fxn_ui.R;
+import cn.fxn.svm.ui.R;
 
 
 /**

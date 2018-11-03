@@ -1,4 +1,4 @@
-package cn.fxn.svm.fxn_ui;
+package cn.fxn.svm.ui;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

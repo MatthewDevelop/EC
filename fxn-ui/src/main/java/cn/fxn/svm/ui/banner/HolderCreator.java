@@ -5,7 +5,7 @@ import android.view.View;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 
-import cn.fxn.svm.fxn_ui.R;
+import cn.fxn.svm.ui.R;
 
 
 /**

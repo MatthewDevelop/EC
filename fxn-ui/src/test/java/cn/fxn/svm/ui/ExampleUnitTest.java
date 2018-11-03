@@ -1,4 +1,4 @@
-package cn.fxn.svm.fxn_ui;
+package cn.fxn.svm.ui;
 
 import org.junit.Test;
 
