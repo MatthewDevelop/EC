@@ -6,13 +6,17 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.SimpleClickListener;
 
+import cn.fxn.svm.core.app.EC;
 import cn.fxn.svm.core.delegates.EcDelegate;
+import cn.fxn.svm.core.net.RestClient;
+import cn.fxn.svm.core.net.callback.ISuccess;
 import cn.fxn.svm.core.util.callback.CallbackManager;
 import cn.fxn.svm.core.util.callback.CallbackType;
 import cn.fxn.svm.core.util.callback.IGlobalCallback;
@@ -55,6 +59,36 @@ public class UserProfileClickListener extends SimpleClickListener {
                         final CircleImageView imageView=view.findViewById(R.id.img_arrow_avatar);
                         //拿到文件后处理,上传，展示等操作
                         Glide.with(view).load(args).apply(OPTIONS).into(imageView);
+                        /**
+                         * 将头像上传至服务器
+                         */
+//                        RestClient.builder()
+//                                .url("upload_path")
+//                                .loader(DELEGATE.getContext())
+//                                .file(args.getPath())
+//                                .success(new ISuccess() {
+//                                    @Override
+//                                    public void onSuccess(String response) {
+//                                        //新的缩略图路径
+//                                        String newPath=JSON.parseObject(response).getString("avatar");
+//                                        //通知服务器变更信息
+//                                        RestClient.builder()
+//                                                .url("user_profile.json")
+//                                                .params("avatar", newPath)
+//                                                .loader(DELEGATE.getContext())
+//                                                .success(new ISuccess() {
+//                                                    @Override
+//                                                    public void onSuccess(String response) {
+//                                                        //获取最新的用户信息后更新本地数据
+//                                                        //或无操作，app每次都重新抓取用户信息数据
+//                                                    }
+//                                                })
+//                                                .build()
+//                                                .post();
+//                                    }
+//                                })
+//                                .build()
+//                                .upload();
                     }
                 });
                 DELEGATE.startCaremaWithCheck();

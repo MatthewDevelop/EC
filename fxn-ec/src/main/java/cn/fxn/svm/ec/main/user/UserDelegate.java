@@ -18,6 +18,7 @@ import cn.fxn.svm.ec.main.user.list.ListAdapter;
 import cn.fxn.svm.ec.main.user.list.ListBean;
 import cn.fxn.svm.ec.main.user.list.ListItemType;
 import cn.fxn.svm.ec.main.user.order.OrderListDelegate;
+import cn.fxn.svm.ec.main.user.profile.UserProfileClickListener;
 import cn.fxn.svm.ec.main.user.profile.UserProfileDelegate;
 
 /**
@@ -105,6 +106,7 @@ public class UserDelegate extends BottomItemDelegate {
         mRecyclerView.setLayoutManager(manager);
         final ListAdapter adapter = new ListAdapter(data);
         mRecyclerView.setAdapter(adapter);
+        mRecyclerView.addOnItemTouchListener(new UserOnClickListener(this));
     }
 
     @Override
