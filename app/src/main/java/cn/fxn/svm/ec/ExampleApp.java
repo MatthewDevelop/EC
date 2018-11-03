@@ -1,7 +1,9 @@
 package cn.fxn.svm.ec;
 
 import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
+import com.blankj.utilcode.util.Utils;
 import com.facebook.stetho.Stetho;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -20,7 +22,7 @@ import cn.fxn.svm.fxn_ec.icon.FontEcModule;
  * @email:guocheng0816@163.com
  * @func:
  */
-public class ExampleApp extends Application {
+public class ExampleApp extends MultiDexApplication {
 
     public static final String HOME_URL="http://192.168.0.101:8080/";
     public static final String WORK_URL="http://192.168.137.38:8080/";
@@ -41,6 +43,7 @@ public class ExampleApp extends Application {
                 .withJavaScriptInterface("ec")
                 .withWebEvent("test", new TestEvent())
                 .configure();
+        Utils.init(EC.getApplication());
         Logger.addLogAdapter(new AndroidLogAdapter());
         initStetho();
         DatabaseManager.getInstance().init(this);

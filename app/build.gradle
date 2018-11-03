@@ -7,6 +7,7 @@ android {
         applicationId "cn.fxn.svm.ec"
         minSdkVersion 15
         targetSdkVersion 28
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -30,4 +31,6 @@ dependencies {
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     implementation project(':fxn-annotations')
     implementation project(':fxn-ec')
+    //突破64K限制
+    implementation 'com.android.support:multidex:1.0.3'
 }

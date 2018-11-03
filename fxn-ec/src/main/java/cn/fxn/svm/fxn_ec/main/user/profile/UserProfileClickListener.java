@@ -1,18 +1,28 @@
 package cn.fxn.svm.fxn_ec.main.user.profile;
 
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.SimpleClickListener;
 
 import cn.fxn.svm.fxn_core.delegates.EcDelegate;
+import cn.fxn.svm.fxn_core.util.callback.CallbackManager;
+import cn.fxn.svm.fxn_core.util.callback.CallbackType;
+import cn.fxn.svm.fxn_core.util.callback.IGlobalCallback;
+import cn.fxn.svm.fxn_core.util.log.EcLogger;
 import cn.fxn.svm.fxn_ec.R;
 import cn.fxn.svm.fxn_ec.main.user.list.ListBean;
 import cn.fxn.svm.fxn_ec.main.user.settings.NameDelegate;
 import cn.fxn.svm.fxn_ui.ui.date.DateDialogUtil;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * @author:Matthew
@@ -21,6 +31,10 @@ import cn.fxn.svm.fxn_ui.ui.date.DateDialogUtil;
  * @func:
  */
 public class UserProfileClickListener extends SimpleClickListener {
+    private static final RequestOptions OPTIONS = new RequestOptions()
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .centerCrop()
+            .dontAnimate();
 
     final String[] GENDERS = new String[]{"男", "女", "保密"};
     private final EcDelegate DELEGATE;
@@ -36,6 +50,16 @@ public class UserProfileClickListener extends SimpleClickListener {
         switch (id) {
             case 1:
                 //拍照或选择图片
+                CallbackManager.getInstance().addCallback(CallbackType.ON_CROP, new IGlobalCallback<Uri>() {
+                    @Override
+                    public void excuteCallback(Uri args) {
+                        EcLogger.d(args);
+                        final CircleImageView imageView=view.findViewById(R.id.img_arrow_avatar);
+                        //拿到文件后处理,上传，展示等操作
+                        Glide.with(view).load(args).apply(OPTIONS).into(imageView);
+                    }
+                });
+                DELEGATE.startCaremaWithCheck();
                 break;
             case 2:
                 DELEGATE.getSupportDelegate().start(bean.getDelegate());

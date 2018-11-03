@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 
+import com.blankj.utilcode.util.Utils;
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
@@ -41,8 +42,8 @@ public class Configurator {
 
     public final void configure() {
         initIcons();
-        EC_CONFIGS.put(ConfigKeys.CONFIG_READY.name(), true);
         EC_CONFIGS.put(ConfigKeys.HANDLER, HANDLER);
+        EC_CONFIGS.put(ConfigKeys.CONFIG_READY.name(), true);
     }
 
     /**
