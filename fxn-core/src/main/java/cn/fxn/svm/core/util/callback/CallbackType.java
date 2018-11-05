@@ -7,5 +7,7 @@ package cn.fxn.svm.core.util.callback;
  * @func:
  */
 public enum CallbackType {
-    ON_CROP
+    ON_CROP,
+    TAG_OPEN_PUSH,
+    TAG_STOP_PUSH
 }

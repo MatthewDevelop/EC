@@ -54,7 +54,7 @@ public class UserProfileClickListener extends SimpleClickListener {
                 //拍照或选择图片
                 CallbackManager.getInstance().addCallback(CallbackType.ON_CROP, new IGlobalCallback<Uri>() {
                     @Override
-                    public void excuteCallback(Uri args) {
+                    public void executeCallback(Uri args) {
                         EcLogger.d(args);
                         final CircleImageView imageView=view.findViewById(R.id.img_arrow_avatar);
                         //拿到文件后处理,上传，展示等操作

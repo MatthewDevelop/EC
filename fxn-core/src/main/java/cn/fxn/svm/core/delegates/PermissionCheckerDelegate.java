@@ -104,7 +104,7 @@ public abstract class PermissionCheckerDelegate extends BaseDelegate {
                             .getInstance()
                             .getCallback(CallbackType.ON_CROP);
                     if (callback!=null){
-                        callback.excuteCallback(cropUri);
+                        callback.executeCallback(cropUri);
                     }
                     break;
                 case RequestCode.CROP_ERROR:

@@ -1,5 +1,6 @@
 package cn.fxn.svm.ec.main.user.list;
 
+import android.support.v7.widget.SwitchCompat;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -52,6 +53,10 @@ public class ListAdapter extends BaseMultiItemQuickAdapter<ListBean, BaseViewHol
                         .into((ImageView) helper.getView(R.id.img_arrow_avatar));
                 break;
             case ListItemType.ITEM_SWITCH:
+                helper.setText(R.id.tv_arrow_switch_text, item.getText());
+                final SwitchCompat switchCompat=helper.getView(R.id.list_item_switch);
+                switchCompat.setChecked(true);
+                switchCompat.setOnCheckedChangeListener(item.getOnCheckedChangeListener());
                 break;
             default:
                 break;

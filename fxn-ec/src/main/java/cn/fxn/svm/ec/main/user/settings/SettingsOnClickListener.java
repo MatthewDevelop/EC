@@ -1,4 +1,4 @@
-package cn.fxn.svm.ec.main.user;
+package cn.fxn.svm.ec.main.user.settings;
 
 import android.view.View;
 
@@ -10,15 +10,15 @@ import cn.fxn.svm.ec.main.user.list.ListBean;
 
 /**
  * @author:Matthew
- * @date:2018/11/3
+ * @date:2018/11/5
  * @email:guocheng0816@163.com
  * @func:
  */
-public class UserOnClickListener extends SimpleClickListener {
+public class SettingsOnClickListener extends SimpleClickListener {
 
     private final EcDelegate DELEGATE;
 
-    public UserOnClickListener(EcDelegate delegate) {
+    public SettingsOnClickListener(EcDelegate delegate) {
         DELEGATE = delegate;
     }
 
@@ -28,10 +28,10 @@ public class UserOnClickListener extends SimpleClickListener {
         int id = bean.getId();
         switch (id) {
             case 1:
-                DELEGATE.getParentDelegate().getSupportDelegate().start(bean.getDelegate());
+                //do nothing
                 break;
             case 2:
-                DELEGATE.getParentDelegate().getSupportDelegate().start(bean.getDelegate());
+                DELEGATE.getSupportDelegate().start(bean.getDelegate());
                 break;
             default:
                 break;

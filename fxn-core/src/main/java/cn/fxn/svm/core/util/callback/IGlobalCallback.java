@@ -1,5 +1,7 @@
 package cn.fxn.svm.core.util.callback;
 
+import android.support.annotation.Nullable;
+
 /**
  * @author:Matthew
  * @date:2018/11/3
@@ -8,6 +10,6 @@ package cn.fxn.svm.core.util.callback;
  */
 public interface IGlobalCallback<T> {
 
-    void excuteCallback(T args);
+    void executeCallback(@Nullable T args);
 
 }

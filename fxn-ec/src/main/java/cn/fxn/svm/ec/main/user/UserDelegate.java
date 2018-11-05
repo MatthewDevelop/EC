@@ -14,12 +14,14 @@ import butterknife.OnClick;
 import cn.fxn.svm.core.delegates.bottom.BottomItemDelegate;
 import cn.fxn.svm.ec.R;
 import cn.fxn.svm.ec.R2;
+import cn.fxn.svm.ec.main.user.address.AddressDelegate;
 import cn.fxn.svm.ec.main.user.list.ListAdapter;
 import cn.fxn.svm.ec.main.user.list.ListBean;
 import cn.fxn.svm.ec.main.user.list.ListItemType;
 import cn.fxn.svm.ec.main.user.order.OrderListDelegate;
 import cn.fxn.svm.ec.main.user.profile.UserProfileClickListener;
 import cn.fxn.svm.ec.main.user.profile.UserProfileDelegate;
+import cn.fxn.svm.ec.main.user.settings.SettingsDelegate;
 
 /**
  * @author:Matthew
@@ -91,11 +93,13 @@ public class UserDelegate extends BottomItemDelegate {
                 .setItemType(ListItemType.ITEM_NORMAL)
                 .setId(1)
                 .setText("收货地址")
+                .setDelegate(new AddressDelegate())
                 .build();
         final ListBean system = new ListBean.Builder()
                 .setItemType(ListItemType.ITEM_NORMAL)
                 .setId(2)
                 .setText("系统设置")
+                .setDelegate(new SettingsDelegate())
                 .build();
         final List<ListBean> data = new ArrayList<>();
         data.add(push);
