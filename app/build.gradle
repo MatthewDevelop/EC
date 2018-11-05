@@ -4,7 +4,7 @@ apply plugin: 'com.jakewharton.butterknife'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "cn.fxn.svm.ec"
+        applicationId "cn.fxn.svm.app"
         minSdkVersion 15
         targetSdkVersion 28
         multiDexEnabled true
@@ -20,7 +20,7 @@ android {
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME : applicationId,
-                JPUSH_APPKEY : "ab4cbca0de1e59483f5fb2cb", //JPush 上注册的包名对应的 Appkey.
+                JPUSH_APPKEY : "5820112ba9459bedd6585656", //JPush 上注册的包名对应的 Appkey.
                 JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
         ]
     }
