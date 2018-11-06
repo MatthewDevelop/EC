@@ -3,6 +3,7 @@ package cn.fxn.svm.core.activities;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ContentFrameLayout;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
@@ -40,6 +41,7 @@ public abstract class ProxyActivity extends AppCompatActivity implements ISuppor
 
     private void initContainer(@Nullable Bundle savedInstanceState) {
         final FrameLayout container = new FrameLayout(this);
+//        final ContentFrameLayout container = new ContentFrameLayout(this);
         container.setId(R.id.delegate_container);
         setContentView(container);
         if (savedInstanceState == null) {

@@ -9,6 +9,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import cn.fxn.svm.core.app.EC;
 import cn.fxn.svm.core.net.RestClient;
+import cn.fxn.svm.core.net.callback.IError;
+import cn.fxn.svm.core.net.callback.IFailure;
 import cn.fxn.svm.core.net.callback.ISuccess;
 import cn.fxn.svm.ui.recycler.DataConvert;
 import cn.fxn.svm.ui.recycler.MultipleRecyclerAdapter;
@@ -47,6 +49,21 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
         return new RefreshHandler(swipeRefreshLayout, new PagingBean(), recyclerview, convert);
     }
 
+    @Override
+    public void onRefresh() {
+        refresh();
+    }
+
+    private void refresh() {
+        SWIPE_REFRESH_LAYOUT.setRefreshing(true);
+        EC.getHandler().post(new Runnable() {
+            @Override
+            public void run() {
+                firstPage("index.json");
+            }
+        });
+    }
+
     public void firstPage(String url) {
         BEAN.setDelayed(1000);
         RestClient.builder()
@@ -63,28 +80,25 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
                         mAdapter.setOnLoadMoreListener(RefreshHandler.this, RECYCLERVIEW);
                         RECYCLERVIEW.setAdapter(mAdapter);
                         BEAN.setPageIndex(1);
-                        if(SWIPE_REFRESH_LAYOUT.isRefreshing()){
+                        if (SWIPE_REFRESH_LAYOUT.isRefreshing()) {
                             SWIPE_REFRESH_LAYOUT.setRefreshing(false);
                         }
                     }
                 })
+                .failure(new IFailure() {
+                    @Override
+                    public void onFailure() {
+                        EcLogger.d("FAILED");
+                    }
+                })
+                .error(new IError() {
+                    @Override
+                    public void onError(int code, String msg) {
+                        EcLogger.d(code + " " + msg);
+                    }
+                })
                 .build()
                 .get();
-    }
-
-    @Override
-    public void onRefresh() {
-        refresh();
-    }
-
-    private void refresh() {
-        SWIPE_REFRESH_LAYOUT.setRefreshing(true);
-        EC.getHandler().post(new Runnable() {
-            @Override
-            public void run() {
-                firstPage("index.json");
-            }
-        });
     }
 
     @Override

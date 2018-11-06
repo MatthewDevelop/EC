@@ -85,6 +85,7 @@ public class OrderListDelegate extends EcDelegate {
                 .loader(getContext())
                 .url(mUrl)
 //                .url("order_list.json")
+                .params("", "")
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {

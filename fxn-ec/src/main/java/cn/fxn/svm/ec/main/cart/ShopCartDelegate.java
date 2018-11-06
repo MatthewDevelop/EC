@@ -136,7 +136,7 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess, IC
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        final int orderId=JSON.parseObject(response).getInteger("result");
+                        final int orderId = JSON.parseObject(response).getInteger("result");
                         //具体支付
                         FastPay.create(ShopCartDelegate.this)
                                 .setPayResultListener(ShopCartDelegate.this)
@@ -171,21 +171,7 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess, IC
     @Override
     public void updatePrice(double selectedTotalPrice) {
         mTotalPrice.setText(String.valueOf(selectedTotalPrice));
-    }    @Override
-    public void onSuccess(String response) {
-        EcLogger.d(response);
-        final ArrayList<MultipleItemEntity> data =
-                new ShopCartDataConverter().setJsonData(response).convert();
-        mAdapter = new ShopCartAdapter(data);
-        mAdapter.setCartItemListener(this);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(mAdapter);
-        checkoutItemCount();
-        mAdapter.checkSelectedItemTotalPrice();
     }
-
 
     @Override
     public void onPaySuccess() {
@@ -210,5 +196,20 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess, IC
     @Override
     public void onPayConnectError() {
 
+    }
+
+    @Override
+    public void onSuccess(String response) {
+        EcLogger.d(response);
+        final ArrayList<MultipleItemEntity> data =
+                new ShopCartDataConverter().setJsonData(response).convert();
+        mAdapter = new ShopCartAdapter(data);
+        mAdapter.setCartItemListener(this);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setAdapter(mAdapter);
+        checkoutItemCount();
+        mAdapter.checkSelectedItemTotalPrice();
     }
 }
