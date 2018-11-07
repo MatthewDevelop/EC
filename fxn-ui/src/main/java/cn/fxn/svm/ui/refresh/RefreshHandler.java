@@ -71,7 +71,7 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        EcLogger.e(TAG, response);
+//                        EcLogger.e(TAG, response);
                         final JSONObject object = JSON.parseObject(response);
                         BEAN.setTotal(object.getInteger("total"))
                                 .setPageSize(object.getInteger("page_size"));

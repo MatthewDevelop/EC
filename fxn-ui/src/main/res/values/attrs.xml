@@ -4,7 +4,7 @@
     <declare-styleable name="camera_flow_layout">
         <attr name="max_count" format="integer" />
         <attr name="item_margin" format="integer" />
-        <attr name="line_count" format="integer" />
         <attr name="icon_size" format="dimension" />
+        <attr name="image_per_line" format="integer" />
     </declare-styleable>
 </resources>

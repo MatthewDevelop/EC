@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.fxn.svm.app">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="cn.fxn.svm.app.ExampleApp"
         android:allowBackup="true"
@@ -48,8 +50,8 @@
         <!-- User defined.  For test only  用户自定义的广播接收器-->
         <receiver
             android:name=".push.PushReceiver"
-            android:exported="false"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
                 <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->

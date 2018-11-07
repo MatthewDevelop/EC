@@ -31,55 +31,68 @@
             android:textSize="20sp" />
     </android.support.v7.widget.Toolbar>
 
-    <RelativeLayout
+    <ScrollView
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="0dp">
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/img_order_comment"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="30dp" />
 
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/tv_comment_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/img_order_comment"
-            android:text="评分"
-            android:textColor="@color/we_chat_black" />
-
-        <cn.fxn.svm.ui.wdget.StartLayout
-            android:id="@+id/custom_comment_star"
+        <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/tv_comment_title"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_toRightOf="@id/img_order_comment"
-            android:gravity="center" />
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/et_order_comment"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@android:color/white"
-        android:gravity="top|left"
-        android:hint="写下评论"
-        android:padding="10dp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
 
-    <cn.fxn.svm.ui.wdget.AutoPhotoLayout
-        android:id="@+id/custom_auto_photo_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        app:icon_size="10sp"
-        app:item_margin="10"
-        app:line_count="5"
-        app:max_count="5"/>
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/img_order_comment"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_comment_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/img_order_comment"
+                    android:text="评分"
+                    android:textColor="@color/we_chat_black" />
+
+                <cn.fxn.svm.ui.wdget.StartLayout
+                    android:id="@+id/custom_comment_star"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/tv_comment_title"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_toRightOf="@id/img_order_comment"
+                    android:gravity="center" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_order_comment"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@android:color/white"
+                android:gravity="top|left"
+                android:hint="写下评论"
+                android:padding="10dp" />
+
+            <cn.fxn.svm.ui.wdget.AutoPhotoLayout
+                android:id="@+id/custom_auto_photo_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                app:icon_size="10sp"
+                app:image_per_line="3"
+                app:item_margin="10"
+                app:max_count="5" />
+        </android.support.v7.widget.LinearLayoutCompat>
+    </ScrollView>
 
 </android.support.v7.widget.LinearLayoutCompat>

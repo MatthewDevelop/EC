@@ -107,7 +107,7 @@ public class MultipleRecyclerAdapter
                 if (!isInitBanner) {
                     bannerImages = entity.getField(MultipleFields.BANNERS);
                     final ConvenientBanner<String> convenientBanner = holder.getView(R.id.banner_recycler);
-                    EcLogger.e(TAG, (convenientBanner==null)+"");
+//                    EcLogger.e(TAG, (convenientBanner==null)+"");
                     BannerCreator.setDefault(convenientBanner, bannerImages, this);
                     isInitBanner = true;
                 }

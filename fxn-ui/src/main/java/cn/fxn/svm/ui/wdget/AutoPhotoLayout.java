@@ -61,9 +61,9 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
      */
     private int mMaxNum = 0;
     /**
-     * 最大行数
+     * 每行的图片数
      */
-    private int mMaxLineNum = 0;
+    private int mImageCountPerLine = 0;
     private IconTextView mIconAdd = null;
     private LayoutParams mParams = null;
     /**
@@ -105,10 +105,10 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
         @SuppressLint("CustomViewStyleable") final TypedArray typedArray =
                 context.obtainStyledAttributes(attrs, R.styleable.camera_flow_layout);
         mMaxNum = typedArray.getInt(R.styleable.camera_flow_layout_max_count, 1);
-        mMaxLineNum = typedArray.getInt(R.styleable.camera_flow_layout_line_count, 3);
+        mImageCountPerLine = typedArray.getInt(R.styleable.camera_flow_layout_image_per_line, 3);
         mImageMargin = typedArray.getInt(R.styleable.camera_flow_layout_item_margin, 0);
         mIconSize = typedArray.getDimension(R.styleable.camera_flow_layout_icon_size, 20);
-        EcLogger.e(TAG, mMaxNum + "-" + mMaxLineNum + "-" + mImageMargin + "-" + mIconSize);
+        EcLogger.e(TAG, mMaxNum + "-" + mImageCountPerLine + "-" + mImageMargin + "-" + mIconSize);
         typedArray.recycle();
     }
 
@@ -123,7 +123,6 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
      * 初始化添加按钮
      */
     private void initAddIcon() {
-        setOrientation(VERTICAL);
         mIconAdd = new IconTextView(getContext());
         mIconAdd.setText(ICON_TEXT);
         mIconAdd.setGravity(Gravity.CENTER);
@@ -194,18 +193,24 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
                 modeWidth == MeasureSpec.EXACTLY ? sizeWidth : width + getPaddingRight() + getPaddingLeft(),
                 modeHeight == MeasureSpec.EXACTLY ? sizeHeight : height + getPaddingTop() + getPaddingBottom());
         //设置一行所有图片的宽度
-        final int imageSideLen = sizeWidth / mMaxLineNum;
+        final int imageSideLen = (sizeWidth - getPaddingLeft() - getPaddingRight() - 2 * mImageCountPerLine * mImageMargin)
+                / mImageCountPerLine;
         /**
          * 只初始化一次
          */
         if (!mIsOnceInitOnMeasure) {
             mParams = new LayoutParams(imageSideLen, imageSideLen);
+            mParams.leftMargin = mImageMargin;
+            mParams.rightMargin = mImageMargin;
+            mParams.topMargin = mImageMargin;
+            mParams.bottomMargin = mImageMargin;
             mIsOnceInitOnMeasure = true;
         }
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+//        EcLogger.e(TAG, "onLayout: "+changed+"-"+l+"-"+t+"-"+r+"-"+b+"");
         ALL_VIEWS.clear();
         LINE_HEIGHTS.clear();
         //获取房前ViewGroup的宽度
