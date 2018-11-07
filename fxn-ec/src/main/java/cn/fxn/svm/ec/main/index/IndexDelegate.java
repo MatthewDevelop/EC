@@ -10,14 +10,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.joanzapata.iconify.widget.IconTextView;
 
 import java.util.WeakHashMap;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import cn.fxn.svm.core.delegates.bottom.BottomItemDelegate;
 import cn.fxn.svm.core.net.RestCreator;
 import cn.fxn.svm.core.net.rx.RxRestClient;
+import cn.fxn.svm.core.util.callback.CallbackManager;
+import cn.fxn.svm.core.util.callback.CallbackType;
+import cn.fxn.svm.core.util.callback.IGlobalCallback;
 import cn.fxn.svm.ui.recycler.BaseDecoration;
 import cn.fxn.svm.ui.refresh.RefreshHandler;
 import cn.fxn.svm.ec.R;
@@ -43,12 +48,14 @@ public class IndexDelegate extends BottomItemDelegate {
     SwipeRefreshLayout mSwipeRefreshLayout = null;
     @BindView(R2.id.tb_index)
     Toolbar mToolbar = null;
-    @BindView(R2.id.ic_index_scan)
-    IconTextView mIcScan = null;
     @BindView(R2.id.ic_index_message)
     IconTextView mIcMessage = null;
-
     private RefreshHandler mRefreshHandler = null;
+
+    @OnClick(R2.id.ic_index_scan)
+    void onClickScan() {
+        startScanWithCheck(getParentDelegate());
+    }
 
     @Override
     public Object setLayout() {
@@ -58,6 +65,13 @@ public class IndexDelegate extends BottomItemDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         mRefreshHandler = RefreshHandler.create(mSwipeRefreshLayout, mRecyclerView, new IndexDataConvert());
+        CallbackManager.getInstance().addCallback(CallbackType.ON_SCAN, new IGlobalCallback<String>() {
+            @Override
+            public void executeCallback(@Nullable String args) {
+                ToastUtils.showShort(args);
+                //解析二维码的操作
+            }
+        });
     }
 
     @Override
