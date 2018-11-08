@@ -6,10 +6,12 @@ import android.support.multidex.MultiDexApplication;
 import com.blankj.utilcode.util.Utils;
 import com.facebook.stetho.Stetho;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
+import com.mob.MobSDK;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
 
+import cn.fxn.svm.app.event.ShareEvent;
 import cn.fxn.svm.core.app.EC;
 import cn.fxn.svm.app.event.TestEvent;
 import cn.fxn.svm.core.net.interceptors.DebugInterceptor;
@@ -46,6 +48,7 @@ public class ExampleApp extends MultiDexApplication {
                 .withWeChatAppSecret("a0560f75335b06e3ebea70f29ff219bf")
                 .withJavaScriptInterface("ec")
                 .withWebEvent("test", new TestEvent())
+                .withWebEvent("share", new ShareEvent())
                 .configure();
         Utils.init(EC.getApplication());
         Logger.addLogAdapter(new AndroidLogAdapter());
@@ -73,6 +76,7 @@ public class ExampleApp extends MultiDexApplication {
                         }
                     }
                 });
+        MobSDK.init(this);
     }
 
     private void initStetho() {

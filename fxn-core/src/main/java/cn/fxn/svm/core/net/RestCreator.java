@@ -48,7 +48,8 @@ public class RestCreator {
 
     private static final class OKHttpHolder {
         private static final OkHttpClient.Builder BUILDER = new OkHttpClient.Builder();
-        private static final int TIME_OUT = 60;
+        //请求超时时间
+        private static final int TIME_OUT = 5;
         private static final ArrayList<Interceptor> INTERCEPTORS = EC.getConfiguration(ConfigKeys.INTERCEPTOR);
         public static final OkHttpClient OK_HTTP_CLIENT = addInterceptors()
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
