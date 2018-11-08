@@ -73,7 +73,7 @@ public class WebViewClientImpl extends WebViewClient {
         if (webHost != null) {
             if (cookieManager.hasCookies()) {
                 final String cookieStr = cookieManager.getCookie(webHost);
-                if (cookieStr != null || !cookieStr.equals("")) {
+                if (cookieStr != null && !"".equals(cookieStr)) {
                     EcPreference.addCustomAppProfile("cookie", cookieStr);
                 }
             }
