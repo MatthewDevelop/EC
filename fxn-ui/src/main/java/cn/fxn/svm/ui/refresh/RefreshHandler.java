@@ -12,7 +12,7 @@ import cn.fxn.svm.core.net.RestClient;
 import cn.fxn.svm.core.net.callback.IError;
 import cn.fxn.svm.core.net.callback.IFailure;
 import cn.fxn.svm.core.net.callback.ISuccess;
-import cn.fxn.svm.ui.recycler.DataConvert;
+import cn.fxn.svm.ui.recycler.DataConverter;
 import cn.fxn.svm.ui.recycler.MultipleRecyclerAdapter;
 import cn.fxn.svm.core.util.log.EcLogger;
 
@@ -28,14 +28,14 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
     private final SwipeRefreshLayout SWIPE_REFRESH_LAYOUT;
     private final PagingBean BEAN;
     private final RecyclerView RECYCLERVIEW;
-    private final DataConvert CONVERT;
+    private final DataConverter CONVERT;
     private MultipleRecyclerAdapter mAdapter = null;
 
 
     private RefreshHandler(SwipeRefreshLayout swipeRefreshLayout,
                            PagingBean bean,
                            RecyclerView recyclerview,
-                           DataConvert convert) {
+                           DataConverter convert) {
         SWIPE_REFRESH_LAYOUT = swipeRefreshLayout;
         BEAN = bean;
         RECYCLERVIEW = recyclerview;
@@ -45,7 +45,7 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
 
     public static RefreshHandler create(SwipeRefreshLayout swipeRefreshLayout,
                                         RecyclerView recyclerview,
-                                        DataConvert convert) {
+                                        DataConverter convert) {
         return new RefreshHandler(swipeRefreshLayout, new PagingBean(), recyclerview, convert);
     }
 

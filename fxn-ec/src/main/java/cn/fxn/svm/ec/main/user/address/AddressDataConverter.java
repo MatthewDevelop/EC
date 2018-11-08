@@ -5,9 +5,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import cn.fxn.svm.ui.recycler.DataConvert;
+import cn.fxn.svm.ui.recycler.DataConverter;
 import cn.fxn.svm.ui.recycler.MultipleFields;
 import cn.fxn.svm.ui.recycler.MultipleItemEntity;
 
@@ -17,7 +16,7 @@ import cn.fxn.svm.ui.recycler.MultipleItemEntity;
  * @email:guocheng0816@163.com
  * @func:
  */
-public class AddressDataConverter extends DataConvert {
+public class AddressDataConverter extends DataConverter {
     @Override
     public ArrayList<MultipleItemEntity> convert() {
         final ArrayList<MultipleItemEntity> data = new ArrayList<>();

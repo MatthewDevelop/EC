@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
 
-import cn.fxn.svm.ui.recycler.DataConvert;
+import cn.fxn.svm.ui.recycler.DataConverter;
 import cn.fxn.svm.ui.recycler.ItemType;
 import cn.fxn.svm.ui.recycler.MultipleFields;
 import cn.fxn.svm.ui.recycler.MultipleItemEntity;
@@ -17,7 +17,7 @@ import cn.fxn.svm.ui.recycler.MultipleItemEntity;
  * @email:guocheng0816@163.com
  * @func:分类列表数据转换
  */
-public class VerticalListDataConverter extends DataConvert {
+public class VerticalListDataConverter extends DataConverter {
 
     @Override
     public ArrayList<MultipleItemEntity> convert() {

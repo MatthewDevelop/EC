@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @email:guocheng0816@163.com
  * @func:
  */
-public abstract class DataConvert {
+public abstract class DataConverter {
 
     private String mJsonData = null;
 
@@ -19,7 +19,7 @@ public abstract class DataConvert {
         return mJsonData;
     }
 
-    public DataConvert setJsonData(String jsonData) {
+    public DataConverter setJsonData(String jsonData) {
         mJsonData = jsonData;
         return this;
     }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,9 +21,11 @@ import butterknife.OnClick;
 import cn.fxn.svm.core.delegates.bottom.BottomItemDelegate;
 import cn.fxn.svm.core.net.RestCreator;
 import cn.fxn.svm.core.net.rx.RxRestClient;
+import cn.fxn.svm.core.ui.scanner.ScannerDelegate;
 import cn.fxn.svm.core.util.callback.CallbackManager;
 import cn.fxn.svm.core.util.callback.CallbackType;
 import cn.fxn.svm.core.util.callback.IGlobalCallback;
+import cn.fxn.svm.ec.main.index.search.SearchDelegate;
 import cn.fxn.svm.ui.recycler.BaseDecoration;
 import cn.fxn.svm.ui.refresh.RefreshHandler;
 import cn.fxn.svm.ec.R;
@@ -40,7 +43,7 @@ import io.reactivex.schedulers.Schedulers;
  * @email:guocheng0816@163.com
  * @func:
  */
-public class IndexDelegate extends BottomItemDelegate {
+public class IndexDelegate extends BottomItemDelegate implements View.OnFocusChangeListener {
 
     @BindView(R2.id.rv_index)
     RecyclerView mRecyclerView = null;
@@ -50,12 +53,15 @@ public class IndexDelegate extends BottomItemDelegate {
     Toolbar mToolbar = null;
     @BindView(R2.id.ic_index_message)
     IconTextView mIcMessage = null;
+    @BindView(R2.id.et_index_searchView)
+    AppCompatEditText mSearchView = null;
     private RefreshHandler mRefreshHandler = null;
 
     @OnClick(R2.id.ic_index_scan)
     void onClickScan() {
         startScanWithCheck(getParentDelegate());
     }
+
 
     @Override
     public Object setLayout() {
@@ -64,7 +70,7 @@ public class IndexDelegate extends BottomItemDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-        mRefreshHandler = RefreshHandler.create(mSwipeRefreshLayout, mRecyclerView, new IndexDataConvert());
+        mRefreshHandler = RefreshHandler.create(mSwipeRefreshLayout, mRecyclerView, new IndexDataConverter());
         CallbackManager.getInstance().addCallback(CallbackType.ON_SCAN, new IGlobalCallback<String>() {
             @Override
             public void executeCallback(@Nullable String args) {
@@ -72,6 +78,7 @@ public class IndexDelegate extends BottomItemDelegate {
                 //解析二维码的操作
             }
         });
+        mSearchView.setOnFocusChangeListener(this);
     }
 
     @Override
@@ -166,4 +173,10 @@ public class IndexDelegate extends BottomItemDelegate {
                 });
     }
 
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+            getParentDelegate().getSupportDelegate().start(new SearchDelegate());
+        }
+    }
 }

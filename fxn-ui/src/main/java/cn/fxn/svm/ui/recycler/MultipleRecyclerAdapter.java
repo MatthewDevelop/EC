@@ -17,7 +17,6 @@ import java.util.List;
 
 import cn.fxn.svm.ui.R;
 import cn.fxn.svm.ui.banner.BannerCreator;
-import cn.fxn.svm.core.util.log.EcLogger;
 
 /**
  * @author:Matthew
@@ -62,7 +61,7 @@ public class MultipleRecyclerAdapter
         return new MultipleRecyclerAdapter(data);
     }
 
-    public static MultipleRecyclerAdapter create(DataConvert convert) {
+    public static MultipleRecyclerAdapter create(DataConverter convert) {
         return new MultipleRecyclerAdapter(convert.convert());
     }
 
