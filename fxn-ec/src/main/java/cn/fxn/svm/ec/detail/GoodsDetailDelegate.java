@@ -22,19 +22,27 @@ import com.alibaba.fastjson.JSONObject;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnPageChangeListener;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.daimajia.androidanimations.library.YoYo;
 import com.joanzapata.iconify.widget.IconTextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import cn.fxn.svm.core.delegates.EcDelegate;
 import cn.fxn.svm.core.net.RestClient;
 import cn.fxn.svm.core.net.callback.ISuccess;
 import cn.fxn.svm.ec.R;
 import cn.fxn.svm.ec.R2;
+import cn.fxn.svm.ui.animation.BezierAnimation;
+import cn.fxn.svm.ui.animation.BezierUtil;
 import cn.fxn.svm.ui.banner.HolderCreator;
 import cn.fxn.svm.ui.wdget.CircleTextView;
+import de.hdodenhof.circleimageview.CircleImageView;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
@@ -44,9 +52,14 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
  * @email:guocheng0816@163.com
  * @func:
  */
-public class GoodsDetailDelegate extends EcDelegate implements AppBarLayout.OnOffsetChangedListener {
+public class GoodsDetailDelegate extends EcDelegate implements AppBarLayout.OnOffsetChangedListener, BezierUtil.AnimationListener {
 
     public static final String ARG_GOODS_ID = "ARG_GOODS_ID";
+    private static final RequestOptions OPTIONS = new RequestOptions()
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .centerCrop()
+            .dontAnimate()
+            .override(100, 100);
     @BindView(R2.id.goods_detail_toolbar)
     Toolbar mToolbar = null;
     @BindView(R2.id.tab_layout)
@@ -68,8 +81,9 @@ public class GoodsDetailDelegate extends EcDelegate implements AppBarLayout.OnOf
     RelativeLayout mRlAddShopCart = null;
     @BindView(R2.id.icon_shop_cart)
     IconTextView mIconShopCart = null;
-
     private int mGoodId = -1;
+    private String mGoodThumbUrl = null;
+    private int mShopCount = 0;
 
     public static GoodsDetailDelegate create(@NonNull int goodsId) {
         final Bundle args = new Bundle();
@@ -77,6 +91,16 @@ public class GoodsDetailDelegate extends EcDelegate implements AppBarLayout.OnOf
         final GoodsDetailDelegate goodsDetailDelegate = new GoodsDetailDelegate();
         goodsDetailDelegate.setArguments(args);
         return goodsDetailDelegate;
+    }
+
+    @OnClick(R2.id.rl_add_shop_cart)
+    void onClickAddShopCart() {
+        final CircleImageView animImg = new CircleImageView(getContext());
+        Glide.with(this)
+                .load(mGoodThumbUrl)
+                .apply(OPTIONS)
+                .into(animImg);
+        BezierAnimation.addCart(this, mRlAddShopCart, mIconShopCart, animImg, this);
     }
 
     @Override
@@ -89,6 +113,7 @@ public class GoodsDetailDelegate extends EcDelegate implements AppBarLayout.OnOf
         //折叠状态栏折叠后的颜色
         mCollapsingToolbarLayout.setContentScrimColor(Color.WHITE);
         mAppBar.addOnOffsetChangedListener(this);
+        mCircleTextView.setCircleBackground(Color.RED);
         initData();
         initTabLayout();
     }
@@ -104,6 +129,7 @@ public class GoodsDetailDelegate extends EcDelegate implements AppBarLayout.OnOf
                         initBanner(data);
                         initGoodsInfo(data);
                         initPager(data);
+                        setShopCartCount(data);
                     }
                 })
                 .build()
@@ -145,6 +171,13 @@ public class GoodsDetailDelegate extends EcDelegate implements AppBarLayout.OnOf
         mViewPager.setAdapter(adapter);
     }
 
+    private void setShopCartCount(JSONObject data) {
+        mGoodThumbUrl = data.getString("thumb");
+        if (mShopCount == 0) {
+            mCircleTextView.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,5 +196,24 @@ public class GoodsDetailDelegate extends EcDelegate implements AppBarLayout.OnOf
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
 
+    }
+
+    @Override
+    public void onAnimationEnd() {
+        YoYo.with(new ScaleUpAnimator())
+                .duration(500)
+                .playOn(mIconShopCart);
+        RestClient.builder()
+                .url("about.json")
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+                        mShopCount++;
+                        mCircleTextView.setVisibility(View.VISIBLE);
+                        mCircleTextView.setText(String.valueOf(mShopCount));
+                    }
+                })
+                .build()
+                .get();
     }
 }
