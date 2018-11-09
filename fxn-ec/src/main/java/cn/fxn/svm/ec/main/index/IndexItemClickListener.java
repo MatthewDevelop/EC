@@ -7,6 +7,8 @@ import com.chad.library.adapter.base.listener.SimpleClickListener;
 
 import cn.fxn.svm.core.delegates.EcDelegate;
 import cn.fxn.svm.ec.detail.GoodsDetailDelegate;
+import cn.fxn.svm.ui.recycler.MultipleFields;
+import cn.fxn.svm.ui.recycler.MultipleItemEntity;
 
 /**
  * @author:Matthew
@@ -28,7 +30,9 @@ public class IndexItemClickListener extends SimpleClickListener {
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        final GoodsDetailDelegate goodsDetailDelegate = GoodsDetailDelegate.create();
+        final MultipleItemEntity entity = (MultipleItemEntity) adapter.getData().get(position);
+        final GoodsDetailDelegate goodsDetailDelegate =
+                GoodsDetailDelegate.create((Integer) entity.getField(MultipleFields.ID));
         DELEGATE.getSupportDelegate().start(goodsDetailDelegate);
     }
 

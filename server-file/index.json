@@ -1,8 +1,8 @@
 {
   "code": 0,
   "message": "OK",
-  "total": 200,
-  "page_size": 6,
+  "total": 100,
+  "page_size": 18,
   "data": [
     {
       "goodsId": 0,
@@ -11,7 +11,27 @@
     },
     {
       "goodsId": 0,
+      "spanSize": 1,
+      "imageUrl": "https://i8.mifile.cn/b2c-mimall-media/b366a1c48045c12865a9fcf95936cc32.png"
+    },
+    {
+      "goodsId": 0,
+      "spanSize": 1,
+      "imageUrl": "https://i8.mifile.cn/b2c-mimall-media/b366a1c48045c12865a9fcf95936cc32.png"
+    },
+    {
+      "goodsId": 0,
       "spanSize": 2,
+      "imageUrl": "https://i8.mifile.cn/b2c-mimall-media/b366a1c48045c12865a9fcf95936cc32.png"
+    },
+    {
+      "goodsId": 0,
+      "spanSize": 1,
+      "imageUrl": "https://i8.mifile.cn/b2c-mimall-media/b366a1c48045c12865a9fcf95936cc32.png"
+    },
+    {
+      "goodsId": 0,
+      "spanSize": 1,
       "imageUrl": "https://i8.mifile.cn/b2c-mimall-media/b366a1c48045c12865a9fcf95936cc32.png"
     },
     {

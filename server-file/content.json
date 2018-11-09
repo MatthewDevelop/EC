@@ -25,6 +25,26 @@
           "goods_id": 4,
           "goods_thumb": "https://i8.mifile.cn/b2c-mimall-media/b366a1c48045c12865a9fcf95936cc32.png",
           "goods_name": "小米音箱4"
+        },
+        {
+          "goods_id": 1,
+          "goods_thumb": "https://i8.mifile.cn/b2c-mimall-media/4eb5c5de9aec74b1521d1f35387bc390.png",
+          "goods_name": "小米音箱1"
+        },
+        {
+          "goods_id": 2,
+          "goods_thumb": "https://i8.mifile.cn/b2c-mimall-media/b366a1c48045c12865a9fcf95936cc32.png",
+          "goods_name": "小米音箱2"
+        },
+        {
+          "goods_id": 3,
+          "goods_thumb": "https://i8.mifile.cn/b2c-mimall-media/65ebd9eef07e09751eed01b1b7ce53f7.png",
+          "goods_name": "小米音箱3"
+        },
+        {
+          "goods_id": 4,
+          "goods_thumb": "https://i8.mifile.cn/b2c-mimall-media/4eb5c5de9aec74b1521d1f35387bc390.png",
+          "goods_name": "小米音箱4"
         }
       ]
     },
