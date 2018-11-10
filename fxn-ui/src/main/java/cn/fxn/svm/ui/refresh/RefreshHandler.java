@@ -87,8 +87,8 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
                 })
                 .failure(new IFailure() {
                     @Override
-                    public void onFailure() {
-                        EcLogger.d("FAILED");
+                    public void onFailure(Throwable throwable) {
+
                     }
                 })
                 .error(new IError() {

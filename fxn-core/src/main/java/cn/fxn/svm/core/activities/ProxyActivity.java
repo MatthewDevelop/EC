@@ -49,6 +49,10 @@ public abstract class ProxyActivity extends AppCompatActivity implements ISuppor
         }
     }
 
+    /**
+     * 设置根部的fragment
+     * @return
+     */
     public abstract EcDelegate setRootDelegate();
 
     @Override

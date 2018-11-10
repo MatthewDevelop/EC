@@ -35,14 +35,6 @@ public class SignInDelegate extends EcDelegate {
 
     private ISignListener mISignListener = null;
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof ISignListener) {
-            mISignListener = (ISignListener) activity;
-        }
-    }
-
     @OnClick(R2.id.bt_sign_in)
     void onClickSignIn() {
         if (checkForm()) {
@@ -60,8 +52,8 @@ public class SignInDelegate extends EcDelegate {
                     })
                     .failure(new IFailure() {
                         @Override
-                        public void onFailure() {
-                            EcLogger.d("failed");
+                        public void onFailure(Throwable throwable) {
+                            EcLogger.d(throwable.getMessage());
                         }
                     })
                     .build()
@@ -123,5 +115,13 @@ public class SignInDelegate extends EcDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
 
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ISignListener) {
+            mISignListener = (ISignListener) activity;
+        }
     }
 }

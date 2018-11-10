@@ -93,7 +93,7 @@ public abstract class BaseWXEntryActivity extends BaseWxActivity {
                 })
                 .failure(new IFailure() {
                     @Override
-                    public void onFailure() {
+                    public void onFailure(Throwable throwable) {
 
                     }
                 })

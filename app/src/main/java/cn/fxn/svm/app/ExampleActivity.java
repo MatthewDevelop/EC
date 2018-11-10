@@ -26,16 +26,12 @@ public class ExampleActivity extends ProxyActivity implements ISignListener, ILa
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
         EC.getConfigurator().withActivity(this);
     }
 
     @Override
     public EcDelegate setRootDelegate() {
-        return new EcBottomDelegate();
+        return new LauncherDelegate();
     }
 
     @Override

@@ -7,5 +7,5 @@ package cn.fxn.svm.core.net.callback;
  * @func:
  */
 public interface IFailure {
-    void onFailure();
+    void onFailure(Throwable throwable);
 }

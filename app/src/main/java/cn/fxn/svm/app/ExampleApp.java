@@ -31,17 +31,20 @@ import cn.jpush.android.api.JPushInterface;
 public class ExampleApp extends MultiDexApplication {
 
     public static final String HOME_URL = "http://192.168.0.101:8080/";
-    public static final String WORK_URL = "http://192.168.137.38:8080/";
+    public static final String WORK_URL = "http://10.203.71.13:8080/";
+    public static final String PHONE_URL="http://192.168.137.38:8080/";
 
 
     @Override
     public void onCreate() {
         super.onCreate();
+        //初始化配置
         EC.init(this)
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontEcModule())
 //                .withApiHost(HOME_URL)
-                .withApiHost(WORK_URL)
+//                .withApiHost(WORK_URL)
+                .withApiHost(PHONE_URL)
                 .withWebHost("https://baidu.com/")
                 .withInterceptor(new DebugInterceptor("hello", R.raw.test))
                 .withWeChatAppId("wxfcdcecd9df8e0faa")
@@ -50,7 +53,9 @@ public class ExampleApp extends MultiDexApplication {
                 .withWebEvent("test", new TestEvent())
                 .withWebEvent("share", new ShareEvent())
                 .configure();
+        //初始化工具类
         Utils.init(EC.getApplication());
+        //初始化日志
         Logger.addLogAdapter(new AndroidLogAdapter());
         initStetho();
         DatabaseManager.getInstance().init(this);
