@@ -1,5 +1,6 @@
 package cn.fxn.svm.ec.main.index;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -25,6 +26,7 @@ import cn.fxn.svm.core.ui.scanner.ScannerDelegate;
 import cn.fxn.svm.core.util.callback.CallbackManager;
 import cn.fxn.svm.core.util.callback.CallbackType;
 import cn.fxn.svm.core.util.callback.IGlobalCallback;
+import cn.fxn.svm.core.util.log.EcLogger;
 import cn.fxn.svm.ec.main.index.search.SearchDelegate;
 import cn.fxn.svm.ui.recycler.BaseDecoration;
 import cn.fxn.svm.ui.refresh.RefreshHandler;
@@ -36,6 +38,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import qiu.niorgai.StatusBarCompat;
 
 /**
  * @author:Matthew
@@ -60,25 +63,6 @@ public class IndexDelegate extends BottomItemDelegate implements View.OnFocusCha
     @OnClick(R2.id.ic_index_scan)
     void onClickScan() {
         startScanWithCheck(getParentDelegate());
-    }
-
-
-    @Override
-    public Object setLayout() {
-        return R.layout.delegate_index;
-    }
-
-    @Override
-    public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-        mRefreshHandler = RefreshHandler.create(mSwipeRefreshLayout, mRecyclerView, new IndexDataConverter());
-        CallbackManager.getInstance().addCallback(CallbackType.ON_SCAN, new IGlobalCallback<String>() {
-            @Override
-            public void executeCallback(@Nullable String args) {
-                ToastUtils.showShort(args);
-                //解析二维码的操作
-            }
-        });
-        mSearchView.setOnFocusChangeListener(this);
     }
 
     @Override
@@ -109,6 +93,47 @@ public class IndexDelegate extends BottomItemDelegate implements View.OnFocusCha
 
         mRecyclerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
     }
+
+    @Override
+    protected void handleStatusBar() {
+        super.handleStatusBar();
+//        EcLogger.d("handleStatusBar");
+        StatusBarCompat.translucentStatusBar(getActivity(), true);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        StatusBarCompat.translucentStatusBar(getActivity(), true);
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        EcLogger.d("onSupportVisible");
+        StatusBarCompat.translucentStatusBar(getActivity(), true);
+    }
+
+
+    @Override
+    public Object setLayout() {
+        return R.layout.delegate_index;
+    }
+
+    @Override
+    public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
+        mRefreshHandler = RefreshHandler.create(mSwipeRefreshLayout, mRecyclerView, new IndexDataConverter());
+        CallbackManager.getInstance().addCallback(CallbackType.ON_SCAN, new IGlobalCallback<String>() {
+            @Override
+            public void executeCallback(@Nullable String args) {
+                ToastUtils.showShort(args);
+                //解析二维码的操作
+            }
+        });
+        mSearchView.setOnFocusChangeListener(this);
+    }
+
+
 
     //TODO:测试方法
     void onCallRxRestClient() {

@@ -3,6 +3,7 @@ package cn.fxn.svm.ec.main.index.search;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,6 +27,7 @@ import cn.fxn.svm.core.util.storage.EcPreference;
 import cn.fxn.svm.ec.R;
 import cn.fxn.svm.ec.R2;
 import cn.fxn.svm.ui.recycler.MultipleItemEntity;
+import qiu.niorgai.StatusBarCompat;
 
 /**
  * @author:Matthew
@@ -113,5 +115,12 @@ public class SearchDelegate extends EcDelegate {
             }
         });
         mRecyclerView.addItemDecoration(itemDecoration);
+    }
+
+    @Override
+    protected void handleStatusBar() {
+        super.handleStatusBar();
+        StatusBarCompat.setStatusBarColor(getProxyActivity()
+                , ContextCompat.getColor(getContext(), R.color.app_main));
     }
 }

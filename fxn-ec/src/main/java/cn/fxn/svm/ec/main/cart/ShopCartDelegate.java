@@ -31,6 +31,7 @@ import cn.fxn.svm.ui.recycler.MultipleItemEntity;
 import cn.fxn.svm.core.util.log.EcLogger;
 import cn.fxn.svm.ec.R;
 import cn.fxn.svm.ec.R2;
+import qiu.niorgai.StatusBarCompat;
 
 /**
  * @author:Matthew
@@ -166,6 +167,13 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess, IC
                 .success(this)
                 .build()
                 .get();
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        StatusBarCompat.setStatusBarColor(getProxyActivity()
+                , ContextCompat.getColor(getContext(), R.color.app_main));
     }
 
     @Override

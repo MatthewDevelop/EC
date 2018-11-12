@@ -33,48 +33,9 @@ public abstract class BaseDelegate extends Fragment implements ISupportFragment 
 
     private Unbinder mUnbinder = null;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View rootView;
-        if (setLayout() instanceof Integer) {
-            rootView = inflater.inflate((Integer) setLayout(), container, false);
-        } else if (setLayout() instanceof View) {
-            rootView = (View) setLayout();
-        } else {
-            throw new ClassCastException("setLayout() type must be int or view!");
-        }
-        if (rootView != null) {
-            mUnbinder = ButterKnife.bind(this, rootView);
-            onBindView(savedInstanceState, rootView);
-        }
-        return rootView;
-    }
-
-
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        StatusBarCompat.translucentStatusBar(getProxyActivity(), true);
-    }
-
     public final ProxyActivity getProxyActivity() {
         return (ProxyActivity) _mActivity;
     }
-
-    @Override
-    public void onDestroy() {
-        DELEGATE.onDestroy();
-        super.onDestroy();
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
-        }
-    }
-
-    public abstract Object setLayout();
-
-    public abstract void onBindView(@Nullable Bundle savedInstanceState, View rootView);
 
     @Override
     public SupportFragmentDelegate getSupportDelegate() {
@@ -88,66 +49,6 @@ public abstract class BaseDelegate extends Fragment implements ISupportFragment 
     @Override
     public ExtraTransaction extraTransaction() {
         return DELEGATE.extraTransaction();
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        DELEGATE.onAttach(activity);
-        _mActivity = DELEGATE.getActivity();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        DELEGATE.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        return DELEGATE.onCreateAnimation(transit, enter, nextAnim);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        DELEGATE.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        DELEGATE.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        DELEGATE.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        DELEGATE.onPause();
-    }
-
-    @Override
-    public void onDestroyView() {
-        DELEGATE.onDestroyView();
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        DELEGATE.onHiddenChanged(hidden);
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        DELEGATE.setUserVisibleHint(isVisibleToUser);
     }
 
     /**
@@ -185,7 +86,6 @@ public abstract class BaseDelegate extends Fragment implements ISupportFragment 
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         DELEGATE.onEnterAnimationEnd(savedInstanceState);
     }
-
 
     /**
      * Lazy initial，Called when fragment is first called.
@@ -254,16 +154,6 @@ public abstract class BaseDelegate extends Fragment implements ISupportFragment 
     }
 
     /**
-     * 按返回键触发,前提是SupportActivity的onBackPressed()方法能被调用
-     *
-     * @return false则继续向上传递, true则消费掉该事件
-     */
-    @Override
-    public boolean onBackPressedSupport() {
-        return DELEGATE.onBackPressedSupport();
-    }
-
-    /**
      * 类似 {@link Activity#setResult(int, Intent)}
      * <p>
      * Similar to {@link Activity#setResult(int, Intent)}
@@ -310,4 +200,118 @@ public abstract class BaseDelegate extends Fragment implements ISupportFragment 
     public void putNewBundle(Bundle newBundle) {
         DELEGATE.putNewBundle(newBundle);
     }
+
+    /**
+     * 按返回键触发,前提是SupportActivity的onBackPressed()方法能被调用
+     *
+     * @return false则继续向上传递, true则消费掉该事件
+     */
+    @Override
+    public boolean onBackPressedSupport() {
+        return DELEGATE.onBackPressedSupport();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        DELEGATE.onHiddenChanged(hidden);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        DELEGATE.setUserVisibleHint(isVisibleToUser);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        DELEGATE.onAttach(activity);
+        _mActivity = DELEGATE.getActivity();
+    }
+
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        return DELEGATE.onCreateAnimation(transit, enter, nextAnim);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        DELEGATE.onCreate(savedInstanceState);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        final View rootView;
+        if (setLayout() instanceof Integer) {
+            rootView = inflater.inflate((Integer) setLayout(), container, false);
+        } else if (setLayout() instanceof View) {
+            rootView = (View) setLayout();
+        } else {
+            throw new ClassCastException("setLayout() type must be int or view!");
+        }
+        if (rootView != null) {
+            mUnbinder = ButterKnife.bind(this, rootView);
+            onBindView(savedInstanceState, rootView);
+        }
+        return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        handleStatusBar();
+    }
+
+    /**
+     * 处理状态栏
+     */
+    protected void handleStatusBar() {
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        DELEGATE.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        DELEGATE.onResume();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        DELEGATE.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        DELEGATE.onPause();
+    }
+
+    @Override
+    public void onDestroyView() {
+        DELEGATE.onDestroyView();
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        DELEGATE.onDestroy();
+        super.onDestroy();
+        if (mUnbinder != null) {
+            mUnbinder.unbind();
+        }
+    }
+
+    public abstract Object setLayout();
+
+    public abstract void onBindView(@Nullable Bundle savedInstanceState, View rootView);
 }

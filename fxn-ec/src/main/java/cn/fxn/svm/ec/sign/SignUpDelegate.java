@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.content.ContextCompat;
 import android.util.Patterns;
 import android.view.View;
 
@@ -15,6 +16,7 @@ import cn.fxn.svm.core.net.callback.ISuccess;
 import cn.fxn.svm.core.util.log.EcLogger;
 import cn.fxn.svm.ec.R;
 import cn.fxn.svm.ec.R2;
+import qiu.niorgai.StatusBarCompat;
 
 /**
  * @author:Matthew
@@ -118,6 +120,13 @@ public class SignUpDelegate extends EcDelegate {
         }
 
         return isPass;
+    }
+
+    @Override
+    protected void handleStatusBar() {
+        super.handleStatusBar();
+        StatusBarCompat.setStatusBarColor(getProxyActivity(),
+                ContextCompat.getColor(getContext(), R.color.app_main));
     }
 
     @OnClick(R2.id.tv_link_sign_in)

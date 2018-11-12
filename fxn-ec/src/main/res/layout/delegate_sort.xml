@@ -6,15 +6,13 @@
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@android:color/holo_orange_dark"
-        android:gravity="center">
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_orange_dark">
 
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="?attr/actionBarSize"
             android:gravity="center"
-            android:paddingTop="6dp"
             android:text="分类"
             android:textColor="@color/white"
             android:textSize="20sp" />

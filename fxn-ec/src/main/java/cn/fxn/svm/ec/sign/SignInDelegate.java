@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.content.ContextCompat;
 import android.util.Patterns;
 import android.view.View;
 
@@ -18,6 +19,8 @@ import cn.fxn.svm.core.wechat.EcWeChat;
 import cn.fxn.svm.core.wechat.callbacks.IWeChatSignInCallback;
 import cn.fxn.svm.ec.R;
 import cn.fxn.svm.ec.R2;
+import cn.fxn.svm.ec.main.EcBottomDelegate;
+import qiu.niorgai.StatusBarCompat;
 
 /**
  * @author:Matthew
@@ -48,6 +51,7 @@ public class SignInDelegate extends EcDelegate {
                         public void onSuccess(String response) {
                             EcLogger.json(TAG, response);
                             SignHandler.onSignIn(response, mISignListener);
+//                            getSupportDelegate().start(new EcBottomDelegate());
                         }
                     })
                     .failure(new IFailure() {
@@ -108,6 +112,21 @@ public class SignInDelegate extends EcDelegate {
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ISignListener) {
+            mISignListener = (ISignListener) activity;
+        }
+    }
+
+    @Override
+    protected void handleStatusBar() {
+        super.handleStatusBar();
+        StatusBarCompat.setStatusBarColor(getProxyActivity(),
+                ContextCompat.getColor(getContext(), R.color.app_main));
+    }
+
+    @Override
     public Object setLayout() {
         return R.layout.delegate_sign_in;
     }
@@ -115,13 +134,5 @@ public class SignInDelegate extends EcDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
 
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof ISignListener) {
-            mISignListener = (ISignListener) activity;
-        }
     }
 }

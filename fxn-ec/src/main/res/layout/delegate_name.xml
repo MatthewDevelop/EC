@@ -9,7 +9,15 @@
         android:id="@+id/tb_name"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/holo_orange_dark" />
+        android:background="@android:color/holo_orange_dark" >
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="修改用户名"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:gravity="center"/>
+    </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"

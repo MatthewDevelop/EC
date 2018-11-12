@@ -45,6 +45,7 @@ import cn.fxn.svm.ui.wdget.CircleTextView;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
+import qiu.niorgai.StatusBarCompat;
 
 /**
  * @author:Matthew
@@ -101,6 +102,28 @@ public class GoodsDetailDelegate extends EcDelegate implements AppBarLayout.OnOf
                 .apply(OPTIONS)
                 .into(animImg);
         BezierAnimation.addCart(this, mRlAddShopCart, mIconShopCart, animImg, this);
+    }
+
+    @Override
+    public FragmentAnimator onCreateFragmentAnimator() {
+        return new DefaultHorizontalAnimator();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            mGoodId = bundle.getInt(ARG_GOODS_ID);
+            ToastUtils.showShort(mGoodId + "");
+        }
+    }
+
+    @Override
+    protected void handleStatusBar() {
+        super.handleStatusBar();
+        StatusBarCompat.setStatusBarColorForCollapsingToolbar(getActivity(),
+                mAppBar, mCollapsingToolbarLayout, mToolbar, ContextCompat.getColor(getContext(), R.color.white));
     }
 
     @Override
@@ -176,21 +199,6 @@ public class GoodsDetailDelegate extends EcDelegate implements AppBarLayout.OnOf
         if (mShopCount == 0) {
             mCircleTextView.setVisibility(View.GONE);
         }
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            mGoodId = bundle.getInt(ARG_GOODS_ID);
-            ToastUtils.showShort(mGoodId + "");
-        }
-    }
-
-    @Override
-    public FragmentAnimator onCreateFragmentAnimator() {
-        return new DefaultHorizontalAnimator();
     }
 
     @Override

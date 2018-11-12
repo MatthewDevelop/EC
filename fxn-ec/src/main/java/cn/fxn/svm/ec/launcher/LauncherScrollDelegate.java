@@ -18,6 +18,7 @@ import cn.fxn.svm.ui.launcher.LauncherHolderCreator;
 import cn.fxn.svm.ui.launcher.OnLauncherFinishTag;
 import cn.fxn.svm.core.util.storage.EcPreference;
 import cn.fxn.svm.ec.R;
+import qiu.niorgai.StatusBarCompat;
 
 /**
  * @author:Matthew
@@ -55,6 +56,11 @@ public class LauncherScrollDelegate extends EcDelegate implements OnItemClickLis
     public Object setLayout() {
         mConvenientBanner = new ConvenientBanner<>(getContext());
         return mConvenientBanner;
+    }
+    @Override
+    protected void handleStatusBar() {
+        super.handleStatusBar();
+        StatusBarCompat.translucentStatusBar(getProxyActivity(), true);
     }
 
     @Override

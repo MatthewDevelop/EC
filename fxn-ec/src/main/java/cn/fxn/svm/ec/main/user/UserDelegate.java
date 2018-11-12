@@ -2,6 +2,7 @@ package cn.fxn.svm.ec.main.user;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -22,6 +23,7 @@ import cn.fxn.svm.ec.main.user.order.OrderListDelegate;
 import cn.fxn.svm.ec.main.user.profile.UserProfileClickListener;
 import cn.fxn.svm.ec.main.user.profile.UserProfileDelegate;
 import cn.fxn.svm.ec.main.user.settings.SettingsDelegate;
+import qiu.niorgai.StatusBarCompat;
 
 /**
  * @author:Matthew
@@ -64,22 +66,17 @@ public class UserDelegate extends BottomItemDelegate {
         startOrderListByType();
     }
 
-    @OnClick(R2.id.ll_receive)
-    void onClickLLReceive() {
-        args.putString(ORDER_TYPE, RECEIVE);
-        startOrderListByType();
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        StatusBarCompat.setStatusBarColor(getProxyActivity()
+                , ContextCompat.getColor(getContext(), R.color.app_main));
     }
 
-    @OnClick(R2.id.ll_evaluate)
-    void onClickLLEvaluate() {
-        args.putString(ORDER_TYPE, EVALUATE);
-        startOrderListByType();
-    }
-
-    @OnClick(R2.id.ll_after_sale)
-    void onClickLLAfterSale() {
-        args.putString(ORDER_TYPE, AFTER_SALE);
-        startOrderListByType();
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        args = new Bundle();
     }
 
     @Override
@@ -113,9 +110,21 @@ public class UserDelegate extends BottomItemDelegate {
         mRecyclerView.addOnItemTouchListener(new UserOnClickListener(this));
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        args = new Bundle();
+    @OnClick(R2.id.ll_receive)
+    void onClickLLReceive() {
+        args.putString(ORDER_TYPE, RECEIVE);
+        startOrderListByType();
+    }
+
+    @OnClick(R2.id.ll_evaluate)
+    void onClickLLEvaluate() {
+        args.putString(ORDER_TYPE, EVALUATE);
+        startOrderListByType();
+    }
+
+    @OnClick(R2.id.ll_after_sale)
+    void onClickLLAfterSale() {
+        args.putString(ORDER_TYPE, AFTER_SALE);
+        startOrderListByType();
     }
 }

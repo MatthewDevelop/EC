@@ -21,6 +21,7 @@ import cn.fxn.svm.core.util.timer.BaseTimerTask;
 import cn.fxn.svm.core.util.timer.ITimerListener;
 import cn.fxn.svm.ec.R;
 import cn.fxn.svm.ec.R2;
+import qiu.niorgai.StatusBarCompat;
 
 /**
  * @author:Matthew
@@ -92,6 +93,12 @@ public class LauncherDelegate extends EcDelegate implements ITimerListener {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         initTimer();
+    }
+
+    @Override
+    protected void handleStatusBar() {
+        super.handleStatusBar();
+        StatusBarCompat.translucentStatusBar(getProxyActivity(), true);
     }
 
     @Override
