@@ -44,6 +44,7 @@ import cn.fxn.svm.ui.banner.HolderCreator;
 import cn.fxn.svm.ui.wdget.CircleTextView;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
+import me.yokeyword.fragmentation.anim.DefaultVerticalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 import qiu.niorgai.StatusBarCompat;
 
@@ -86,6 +87,11 @@ public class GoodsDetailDelegate extends EcDelegate implements AppBarLayout.OnOf
     private String mGoodThumbUrl = null;
     private int mShopCount = 0;
 
+    @OnClick(R2.id.icon_goods_back)
+    void onClickBack(){
+        getSupportDelegate().pop();
+    }
+
     public static GoodsDetailDelegate create(@NonNull int goodsId) {
         final Bundle args = new Bundle();
         args.putInt(ARG_GOODS_ID, goodsId);
@@ -106,7 +112,7 @@ public class GoodsDetailDelegate extends EcDelegate implements AppBarLayout.OnOf
 
     @Override
     public FragmentAnimator onCreateFragmentAnimator() {
-        return new DefaultHorizontalAnimator();
+        return new DefaultVerticalAnimator();
     }
 
     @Override
@@ -123,7 +129,7 @@ public class GoodsDetailDelegate extends EcDelegate implements AppBarLayout.OnOf
     protected void handleStatusBar() {
         super.handleStatusBar();
         StatusBarCompat.setStatusBarColorForCollapsingToolbar(getActivity(),
-                mAppBar, mCollapsingToolbarLayout, mToolbar, ContextCompat.getColor(getContext(), R.color.white));
+                mAppBar, mCollapsingToolbarLayout, mToolbar, ContextCompat.getColor(getContext(), R.color.app_main));
     }
 
     @Override
@@ -134,7 +140,7 @@ public class GoodsDetailDelegate extends EcDelegate implements AppBarLayout.OnOf
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         //折叠状态栏折叠后的颜色
-        mCollapsingToolbarLayout.setContentScrimColor(Color.WHITE);
+        mCollapsingToolbarLayout.setContentScrimColor(ContextCompat.getColor(getContext(), R.color.app_main));
         mAppBar.addOnOffsetChangedListener(this);
         mCircleTextView.setCircleBackground(Color.RED);
         initData();

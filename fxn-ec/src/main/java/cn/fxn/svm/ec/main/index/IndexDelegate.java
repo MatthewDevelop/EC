@@ -94,23 +94,10 @@ public class IndexDelegate extends BottomItemDelegate implements View.OnFocusCha
         mRecyclerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
     }
 
-    @Override
-    protected void handleStatusBar() {
-        super.handleStatusBar();
-//        EcLogger.d("handleStatusBar");
-        StatusBarCompat.translucentStatusBar(getActivity(), true);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        StatusBarCompat.translucentStatusBar(getActivity(), true);
-    }
 
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        EcLogger.d("onSupportVisible");
         StatusBarCompat.translucentStatusBar(getActivity(), true);
     }
 
