@@ -91,7 +91,7 @@
                 app:icon_size="10sp"
                 app:image_per_line="3"
                 app:item_margin="10"
-                app:max_count="5" />
+                app:max_count="9" />
         </android.support.v7.widget.LinearLayoutCompat>
     </ScrollView>
 

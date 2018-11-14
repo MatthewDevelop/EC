@@ -64,7 +64,13 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
      * 每行的图片数
      */
     private int mImageCountPerLine = 0;
+    /**
+     * 加号
+     */
     private IconTextView mIconAdd = null;
+    /**
+     * 每张图片的参数
+     */
     private LayoutParams mParams = null;
     /**
      * 要删除的图片id
@@ -210,7 +216,6 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-//        EcLogger.e(TAG, "onLayout: "+changed+"-"+l+"-"+t+"-"+r+"-"+b+"");
         ALL_VIEWS.clear();
         LINE_HEIGHTS.clear();
         //获取房前ViewGroup的宽度
@@ -238,15 +243,22 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
                 lineWidth = 0;
                 lineHeight = childHeight + mlp.topMargin + mlp.bottomMargin;
                 //重置集合
-                mLineViews.clear();
+                mLineViews=new ArrayList<>();
+                //此处不能使用clear方法，clear会导致最后一张图片无法绘制
+//                mLineViews.clear();
+
             }
             lineWidth += childWidth + mlp.leftMargin + mlp.rightMargin;
-            lineHeight = Math.max(lineHeight, lineHeight + mlp.topMargin + mlp.bottomMargin);
+            lineHeight = Math.max(lineHeight, childHeight + mlp.topMargin + mlp.bottomMargin);
             mLineViews.add(child);
         }
         //处理最后一行
         LINE_HEIGHTS.add(lineHeight);
         ALL_VIEWS.add(mLineViews);
+//        EcLogger.d("ALL_VIEW size-"+ALL_VIEWS.size()+"");
+//        for (List<View> list : ALL_VIEWS) {
+//            EcLogger.d("size-"+list.size()+"");
+//        }
         //设置子View的位置
         int left = getPaddingLeft();
         int top = getPaddingTop();
@@ -259,14 +271,15 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
             final int size = mLineViews.size();
             for (int j = 0; j < size; j++) {
                 final View child = mLineViews.get(j);
-                if (child.getVisibility() == GONE) {
+                //到达上限后最后的加号不绘制
+                if (child.getVisibility()==GONE){
                     continue;
                 }
                 final MarginLayoutParams mlp = (MarginLayoutParams) child.getLayoutParams();
                 //设置子View的边距
                 final int lc = left + mlp.leftMargin;
                 final int tc = top + mlp.topMargin;
-                final int rc = lc + child.getMeasuredWidth() - mImageMargin;
+                final int rc = lc + child.getMeasuredWidth();
                 final int bc = tc + child.getMeasuredHeight();
                 //为View进行布局
                 child.layout(lc, tc, rc, bc);
