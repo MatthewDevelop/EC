@@ -60,6 +60,12 @@ public class ScannerDelegate extends EcDelegate implements ZBarScannerView.Resul
 
     @Override
     public void handleResult(Result result) {
+
+//        final Bundle bundle=new Bundle();
+//        bundle.putString("SCAN_RESULT", result.getContents());
+//        setFragmentResult(RequestCode.SCAN, bundle);
+//        getSupportDelegate().pop();
+
         @SuppressWarnings("unchecked") final IGlobalCallback<String> callback = CallbackManager.getInstance()
                 .getCallback(CallbackType.ON_SCAN);
         if (callback != null) {

@@ -47,6 +47,7 @@ public abstract class BaseBottomDelegate extends EcDelegate implements View.OnCl
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         final int size = ITEMS.size();
         for (int i = 0; i < size; i++) {
+            //将布局添加到bottomBar中
             LayoutInflater.from(getContext()).inflate(R.layout.bottom_item_icon_text_layout, mBottomBar);
             final RelativeLayout item = (RelativeLayout) mBottomBar.getChildAt(i);
             //设置item点击事件

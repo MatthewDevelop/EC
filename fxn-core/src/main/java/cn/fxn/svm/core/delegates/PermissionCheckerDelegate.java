@@ -122,8 +122,6 @@ public abstract class PermissionCheckerDelegate extends BaseDelegate {
                 case RequestCode.CROP_ERROR:
                     Toast.makeText(_mActivity, "剪裁出错", Toast.LENGTH_SHORT).show();
                     break;
-                case RequestCode.SCAN:
-                    break;
                 default:
                     break;
             }
@@ -135,5 +133,26 @@ public abstract class PermissionCheckerDelegate extends BaseDelegate {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionCheckerDelegatePermissionsDispatcher
                 .onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    @Override
+    public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
+        super.onFragmentResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case RequestCode.SCAN:
+//                    if (data != null) {
+//                        final IGlobalCallback<String> scanCallBack = CallbackManager
+//                                .getInstance()
+//                                .getCallback(CallbackType.ON_SCAN);
+//                        if (scanCallBack != null) {
+//                            scanCallBack.executeCallback(data.getString("SCAN_RESULT"));
+//                        }
+//                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

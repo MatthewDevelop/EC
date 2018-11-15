@@ -1,6 +1,5 @@
 package cn.fxn.svm.ec.main.index;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -13,8 +12,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.joanzapata.iconify.widget.IconTextView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.WeakHashMap;
 
 import butterknife.BindView;
@@ -22,13 +24,12 @@ import butterknife.OnClick;
 import cn.fxn.svm.core.delegates.bottom.BottomItemDelegate;
 import cn.fxn.svm.core.net.RestCreator;
 import cn.fxn.svm.core.net.rx.RxRestClient;
-import cn.fxn.svm.core.ui.scanner.ScannerDelegate;
 import cn.fxn.svm.core.util.callback.CallbackManager;
 import cn.fxn.svm.core.util.callback.CallbackType;
 import cn.fxn.svm.core.util.callback.IGlobalCallback;
-import cn.fxn.svm.core.util.log.EcLogger;
 import cn.fxn.svm.ec.main.index.search.SearchDelegate;
 import cn.fxn.svm.ui.recycler.BaseDecoration;
+import cn.fxn.svm.ui.recycler.MultipleItemEntity;
 import cn.fxn.svm.ui.refresh.RefreshHandler;
 import cn.fxn.svm.ec.R;
 import cn.fxn.svm.ec.R2;
@@ -59,6 +60,8 @@ public class IndexDelegate extends BottomItemDelegate implements View.OnFocusCha
     @BindView(R2.id.et_index_searchView)
     AppCompatEditText mSearchView = null;
     private RefreshHandler mRefreshHandler = null;
+    private List<MultipleItemEntity> mDataList=null;
+    private IndexAdapter mIndexAdapter=null;
 
     @OnClick(R2.id.ic_index_scan)
     void onClickScan() {
@@ -92,6 +95,15 @@ public class IndexDelegate extends BottomItemDelegate implements View.OnFocusCha
         final EcBottomDelegate ecBottomDelegate = getParentDelegate();
 
         mRecyclerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
+        mIndexAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                mRefreshHandler.paging("index.json");
+//                mRefreshHandler.paging("index.json?index=");
+
+            }
+        }, mRecyclerView);
+        mRecyclerView.setAdapter(mIndexAdapter);
     }
 
 
@@ -109,12 +121,21 @@ public class IndexDelegate extends BottomItemDelegate implements View.OnFocusCha
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-        mRefreshHandler = RefreshHandler.create(mSwipeRefreshLayout, mRecyclerView, new IndexDataConverter());
+        mDataList=new ArrayList<>();
+        mIndexAdapter=new IndexAdapter(mDataList);
+        mRefreshHandler = RefreshHandler.create(mSwipeRefreshLayout, new IndexDataConverter(),mIndexAdapter);
         CallbackManager.getInstance().addCallback(CallbackType.ON_SCAN, new IGlobalCallback<String>() {
             @Override
             public void executeCallback(@Nullable String args) {
                 ToastUtils.showShort(args);
                 //解析二维码的操作
+            }
+        });
+        CallbackManager.getInstance().addCallback(CallbackType.ON_REFRESH, new IGlobalCallback() {
+            @Override
+            public void executeCallback(@Nullable Object args) {
+                //刷新回调
+                mRefreshHandler.firstPage("index.json");
             }
         });
         mSearchView.setOnFocusChangeListener(this);

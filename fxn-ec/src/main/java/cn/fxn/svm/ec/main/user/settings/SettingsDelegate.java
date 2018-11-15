@@ -15,6 +15,7 @@ import butterknife.BindView;
 import cn.fxn.svm.core.delegates.EcDelegate;
 import cn.fxn.svm.core.util.callback.CallbackManager;
 import cn.fxn.svm.core.util.callback.CallbackType;
+import cn.fxn.svm.core.util.callback.IGlobalCallback;
 import cn.fxn.svm.ec.R;
 import cn.fxn.svm.ec.R2;
 import cn.fxn.svm.ec.main.user.UserOnClickListener;
@@ -31,7 +32,7 @@ import cn.fxn.svm.ec.main.user.list.ListItemType;
 public class SettingsDelegate extends EcDelegate {
 
     @BindView(R2.id.rv_settings)
-    RecyclerView mRecyclerView=null;
+    RecyclerView mRecyclerView = null;
 
     @Override
     public Object setLayout() {
@@ -47,11 +48,17 @@ public class SettingsDelegate extends EcDelegate {
                 .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if(isChecked){
-                            CallbackManager.getInstance().getCallback(CallbackType.TAG_OPEN_PUSH).executeCallback(null);
+                        if (isChecked) {
+                            IGlobalCallback openPushCallback = CallbackManager.getInstance().getCallback(CallbackType.TAG_OPEN_PUSH);
+                            if (openPushCallback != null) {
+                                openPushCallback.executeCallback(null);
+                            }
                             Toast.makeText(_mActivity, "开启推送", Toast.LENGTH_SHORT).show();
-                        }else {
-                            CallbackManager.getInstance().getCallback(CallbackType.TAG_STOP_PUSH).executeCallback(null);
+                        } else {
+                            IGlobalCallback closePushCallback = CallbackManager.getInstance().getCallback(CallbackType.TAG_STOP_PUSH);
+                            if (closePushCallback != null) {
+                                closePushCallback.executeCallback(null);
+                            }
                             Toast.makeText(_mActivity, "关闭推送", Toast.LENGTH_SHORT).show();
                         }
                     }
