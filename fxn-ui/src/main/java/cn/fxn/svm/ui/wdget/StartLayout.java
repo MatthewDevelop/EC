@@ -25,7 +25,7 @@ public class StartLayout extends LinearLayoutCompat implements View.OnClickListe
     private static final CharSequence ICON_UN_SELECTED = "{fa-star-o}";
     private static final CharSequence ICON_SELECTED = "{fa-star}";
     private static final int START_TOTAL_COUNT = 5;
-    private static final ArrayList<IconTextView> STARTS = new ArrayList<>();
+    private final ArrayList<IconTextView> STARTS = new ArrayList<>();
 
     public StartLayout(Context context) {
         this(context, null);
