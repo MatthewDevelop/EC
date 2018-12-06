@@ -146,7 +146,8 @@ public class ShopCartDelegate extends BottomItemDelegate implements ISuccess, IC
                     }
                 })
                 .build()
-                .post();
+                .get();
+//                .post();
     }
 
     @Override

@@ -41,7 +41,6 @@ public class SignInDelegate extends EcDelegate {
     @OnClick(R2.id.bt_sign_in)
     void onClickSignIn() {
         if (checkForm()) {
-            EcLogger.d("POST");
             RestClient.builder()
                     .url("user_profile.json")
                     .params("email", mEmail.getText().toString())
@@ -61,7 +60,8 @@ public class SignInDelegate extends EcDelegate {
                         }
                     })
                     .build()
-                    .post();
+                    .get();
+//                    .post();
         }
     }
 

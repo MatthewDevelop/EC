@@ -116,6 +116,7 @@ public class RestClient {
         return new RequestCallbacks(REQUEST, SUCCESS, FAILURE, ERROR, LOADER_STYLE);
     }
 
+    //post需要服务端支持，暂且用get方法获取静态文件
     public final void post() {
         if (BODY == null) {
             request(HttpMethod.POST);

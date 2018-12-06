@@ -136,7 +136,8 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
                                         }
                                     })
                                     .build()
-                                    .post();
+                                    .get();
+//                                    .post();
                         }
                     }
                 });
@@ -160,7 +161,8 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
                                     }
                                 })
                                 .build()
-                                .post();
+                                .get();
+//                                .post();
                     }
                 });
 

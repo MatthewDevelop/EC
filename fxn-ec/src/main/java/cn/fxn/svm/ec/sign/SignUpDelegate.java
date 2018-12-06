@@ -66,7 +66,8 @@ public class SignUpDelegate extends EcDelegate {
                         }
                     })
                     .build()
-                    .post();
+                    .get();
+//                    .post();
         }
     }
 
