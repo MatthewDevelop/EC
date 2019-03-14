@@ -76,7 +76,7 @@ dependencies {
     //图片剪裁
     api 'com.github.yalantis:ucrop:2.2.2-native'
     //Utils
-    api 'com.blankj:utilcode:1.21.2'
+    api 'com.blankj:utilcode:1.22.1'
     //动态权限申请
     api 'com.github.hotchemi:permissionsdispatcher:3.3.1'
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.3.1"
