@@ -66,11 +66,12 @@
 
         <cn.fxn.svm.ui.wdget.CircleTextView
             android:id="@+id/tv_shopping_cart_amount"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/icon_shop_cart"
             android:layout_alignParentTop="true"
             android:layout_alignRight="@+id/icon_shop_cart"
+            android:padding="1dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="2dp"
             android:gravity="center"

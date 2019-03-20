@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -83,7 +84,7 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
     /**
      * 图片边距
      */
-    private int mImageMargin = 0;
+    private int mImageMargin;
     private EcDelegate mDelegate = null;
     /**
      * 防止多次测量和layout
@@ -108,19 +109,20 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
 
     public AutoPhotoLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        Log.e(TAG, "AutoPhotoLayout: ");
         @SuppressLint("CustomViewStyleable") final TypedArray typedArray =
                 context.obtainStyledAttributes(attrs, R.styleable.camera_flow_layout);
         mMaxNum = typedArray.getInt(R.styleable.camera_flow_layout_max_count, 1);
         mImageCountPerLine = typedArray.getInt(R.styleable.camera_flow_layout_image_per_line, 3);
         mImageMargin = typedArray.getInt(R.styleable.camera_flow_layout_item_margin, 0);
         mIconSize = typedArray.getDimension(R.styleable.camera_flow_layout_icon_size, 20);
-        EcLogger.e(TAG, mMaxNum + "-" + mImageCountPerLine + "-" + mImageMargin + "-" + mIconSize);
         typedArray.recycle();
     }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
+        Log.e(TAG, "onFinishInflate: ");
         initAddIcon();
         mTargetDialog = new AlertDialog.Builder(getContext()).create();
     }
@@ -149,6 +151,8 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        measureChildren(widthMeasureSpec, heightMeasureSpec);
+
         final int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
         final int modeWidth = MeasureSpec.getMode(widthMeasureSpec);
         final int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
@@ -165,7 +169,7 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
         for (int i = 0; i < cCount; i++) {
             final View child = getChildAt(i);
             //测量子View的宽高
-            measureChild(child, widthMeasureSpec, heightMeasureSpec);
+//            measureChild(child, widthMeasureSpec, heightMeasureSpec);
             //得到LayoutParams
             final MarginLayoutParams mlp = (MarginLayoutParams) child.getLayoutParams();
             //子View占据的宽度
@@ -198,13 +202,13 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
         setMeasuredDimension(
                 modeWidth == MeasureSpec.EXACTLY ? sizeWidth : width + getPaddingRight() + getPaddingLeft(),
                 modeHeight == MeasureSpec.EXACTLY ? sizeHeight : height + getPaddingTop() + getPaddingBottom());
-        //设置一行所有图片的宽度
-        final int imageSideLen = (sizeWidth - getPaddingLeft() - getPaddingRight() - 2 * mImageCountPerLine * mImageMargin)
-                / mImageCountPerLine;
         /**
          * 只初始化一次
          */
         if (!mIsOnceInitOnMeasure) {
+            //设置一行所有图片的宽度
+            final int imageSideLen = (sizeWidth - getPaddingLeft() - getPaddingRight() - 2 * mImageCountPerLine * mImageMargin)
+                    / mImageCountPerLine;
             mParams = new LayoutParams(imageSideLen, imageSideLen);
             mParams.leftMargin = mImageMargin;
             mParams.rightMargin = mImageMargin;
@@ -218,7 +222,7 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         ALL_VIEWS.clear();
         LINE_HEIGHTS.clear();
-        //获取房前ViewGroup的宽度
+        //获取当前ViewGroup的宽度
         final int width = getWidth();
         int lineWidth = 0;
         int lineHeight = 0;
@@ -243,7 +247,7 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
                 lineWidth = 0;
                 lineHeight = childHeight + mlp.topMargin + mlp.bottomMargin;
                 //重置集合
-                mLineViews=new ArrayList<>();
+                mLineViews = new ArrayList<>();
                 //此处不能使用clear方法，clear会导致最后一张图片无法绘制
 //                mLineViews.clear();
 
@@ -272,7 +276,7 @@ public class AutoPhotoLayout extends LinearLayoutCompat {
             for (int j = 0; j < size; j++) {
                 final View child = mLineViews.get(j);
                 //到达上限后最后的加号不绘制
-                if (child.getVisibility()==GONE){
+                if (child.getVisibility() == GONE) {
                     continue;
                 }
                 final MarginLayoutParams mlp = (MarginLayoutParams) child.getLayoutParams();

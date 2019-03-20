@@ -8,6 +8,7 @@ import android.graphics.PaintFlagsDrawFilter;
 import android.support.annotation.ColorInt;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
+import android.util.Log;
 
 /**
  * @author:Matthew
@@ -16,7 +17,6 @@ import android.util.AttributeSet;
  * @func:
  */
 public class CircleTextView extends AppCompatTextView {
-
     private final Paint PAINT;
     private final PaintFlagsDrawFilter FILTER;
 
